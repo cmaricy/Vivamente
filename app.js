@@ -10,7 +10,7 @@ var configDB = require('./config/database.js');
 
 var app = express();
 
-var server = app.listen(process.env.PORT || '3000', function () {
+var server = app.listen(process.env.PORT || '3001', function () {
 	});
 
 mongoose.connect(configDB.url);

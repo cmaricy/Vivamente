@@ -2,7 +2,7 @@ var UserDB = require('./models/user');
 
 module.exports = function(app, passport) {
 
-	app.post('/', function(req, res) { // post to work on canvas, GAE needs "app.get"
+	app.get('/', function(req, res) { // post to work on canvas, GAE needs "app.get"
 		res.render('index.ejs', {
 			user : req.user
 		});
