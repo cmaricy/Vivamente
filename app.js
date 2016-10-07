@@ -1,35 +1,32 @@
-var express = require('express');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-var morgan = require('morgan');
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
-var passport = require('passport');
-var flash = require('connect-flash');
-var configDB = require('./config/database.js');
+var express = require('express')
+  , cookieParser = require('cookie-parser')
+  , session = require('express-session')
+  , morgan = require('morgan')
+  , mongoose = require('mongoose')
+  , bodyParser = require('body-parser')
+  , passport = require('passport')
+  , flash = require('connect-flash')
+  , configDB = require('./config/database.js')
+  , app = express();
 
-var app = express();
-
-var server = app.listen(process.env.PORT || '3001', function () {
-	});
+require('./config/passport')(passport); 
 
 mongoose.connect(configDB.url);
 mongoose.Promise = global.Promise;
-require('./config/passport')(passport); 
+
 
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(session({secret: 'anystringoftext', saveUninitialized: true, resave: true}));
-app.use(passport.initialize()); //middleware com express
-app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
+app.use(passport.initialize()); 
+app.use(passport.session()); 
+app.use(flash()); 
 app.set('view engine', 'ejs');
 app.enable('trust proxy');
 
 require('./app/routes.js')(app, passport);
 
-
-
-
-
+app.listen(process.env.PORT || '3001', function () {
+	console.log("Aplicação rodando na porta 3001");
+});

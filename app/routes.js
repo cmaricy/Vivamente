@@ -9,6 +9,7 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/profile', function(req, res) {
+		console.log(req.user);
 		res.render('profile.ejs', {
 			user : req.user
 		});

@@ -20,6 +20,7 @@ module.exports = function(passport) {
 		callbackURL : configAuth.facebookAuth.callbackURL,
 		profileFields : [ 'id', 'name', 'email' ]
 	}, function(accessToken, refreshToken, profile, done) {
+		
 		process.nextTick(function() {
 			UserDB.findOne({
 				'facebook.id' : profile.id
