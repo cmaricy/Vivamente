@@ -20,6 +20,8 @@
     "ejs": "^2.5.2",
     "express": "3.2.6",
     "express-session": "^1.14.1",
+    "facebook-node-sdk": "^0.2.0",
+    "fb": "^1.1.1",
     "mongoose": "^4.6.0",
     "morgan": "^1.7.0",
     "passport": "^0.3.2",
