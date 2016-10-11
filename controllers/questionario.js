@@ -16,6 +16,12 @@ module.exports = function(app) {
             res.render('questionario');
         },
 
+        perfil : function(req, res){
+            res.render('profile.ejs', {
+                user : req.user
+            });
+        },
+
         salvarFeedsEPosts: function(req, res) {
 
             FB.api('oauth/access_token', {

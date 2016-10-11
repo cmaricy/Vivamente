@@ -1,12 +1,62 @@
-
 <!doctype html>
-<html>
+<html lang="pt-br">
+
 <head>
-	
+    <title>Vivamente</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="keywords" content="vivamente, usp" />
+    <meta name="author" content="Maricy">
+    <meta name="application-name" content="Vivamente" />
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href='/public/stylesheets/questionario.css' rel='stylesheet' type='text/css'>
+    <link href='/bower_components/bootstrap/dist/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </head>
+
 <body>
 
-	<button onclick="myFacebookLogin()">Login with Facebook</button>
-	
+    <header class="ccheader">
+        <h3>Por favor responda as questões gerais e em seguida o questionário DBI-II.</h3>
+    </header>
+    <div class="wrapper">
+        <form method="post" action="" class="ccform">
+            <div class="ccfield-prepend">
+                <span class="ccform-addon"><i class="fa fa-user fa-2x"></i></span>
+                <input class="ccformfield" type="text" placeholder="Full Name" required>
+            </div>
+            <div class="ccfield-prepend">
+                <span class="ccform-addon"><i class="fa fa-envelope fa-2x"></i></span>
+                <input class="ccformfield" type="text" placeholder="Email" required>
+            </div>
+            <div class="ccfield-prepend">
+                <span class="ccform-addon"><i class="fa fa-mobile-phone fa-2x"></i></span>
+                <input class="ccformfield" type="text" placeholder="Phone">
+            </div>
+            <div class="ccfield-prepend">
+                <span class="ccform-addon"><i class="fa fa-info fa-2x"></i></span>
+                <input class="ccformfield" type="text" placeholder="Subject" required>
+            </div>
+            <div class="ccfield-prepend">
+                <span class="ccform-addon"><i class="fa fa-comment fa-2x"></i></span>
+                <textarea class="ccformfield" name="comments" rows="8" placeholder="Message" required></textarea>
+            </div>
+            <div class="ccfield-prepend">
+                <input class="ccbtn" type="submit" value="Confirmar">
+            </div>
+        </form>
+    </div>
+    <div class="credit">
+        <p>Muito obrigada pela sua cooperação!</p>
+    </div>
+
+
 </body>
+
 </html>

@@ -44,7 +44,8 @@ app.use(flash());
 app.set('view engine', 'ejs');
 
 app.use(methodOverride('_method'));
-app.use(express.static(__dirname + '/public'));
+app.use('/public',  express.static(__dirname + '/public'));
+app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 
 require('./routes/routes.js')(app, passport);
 require('./routes/fbroutes.js')(app, passport);
