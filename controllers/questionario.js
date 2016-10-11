@@ -1,7 +1,7 @@
 module.exports = function(app) {
 
 	var FB = require('fb');
-	
+	var cfg = require('../config.json');
 	var Likes = require('../models/likes')
   	  , Feed = require('../models/feed');
 
@@ -25,8 +25,8 @@ module.exports = function(app) {
         salvarFeedsEPosts: function(req, res) {
 
             FB.api('oauth/access_token', {
-                client_id: '1080743178644933',
-                client_secret: 'xxxxxx',
+                client_id: cfg.CLIENT_ID,
+                client_secret: cfg.CLIENT_SECRET,
                 grant_type: 'client_credentials'
             }, function(token) {
                 if (!token || token.error) {

@@ -1,7 +1,8 @@
+var cfg = require('../config.json');
 module.exports = {
 	'facebookAuth' : {
-		'clientID' : '1080743178644933',
-		'clientSecret' : 'xxxx',
+		'clientID' : cfg.CLIENT_ID,
+		'clientSecret' : cfg.CLIENT_SECRET,
 		'callbackURL' : 'http://localhost:3001/auth/facebook/callback'
 	}
 };

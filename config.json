@@ -1,0 +1,11 @@
+{
+    "SECRET": "vivamente",
+    "KEY": "vivamente.sid",
+    "MAX_AGE": {
+      "maxAge": 3600000
+    },
+    "USER_DB": "xxx",
+    "PASS_DB": "xxx",
+    "CLIENT_ID": "xxx",
+    "CLIENT_SECRET": "xxx"
+  }
