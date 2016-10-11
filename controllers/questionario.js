@@ -26,7 +26,7 @@ module.exports = function(app) {
 
             FB.api('oauth/access_token', {
                 client_id: '1080743178644933',
-                client_secret: '6e489c281c1928f822a352f7fdfc8368',
+                client_secret: 'xxxxxx',
                 grant_type: 'client_credentials'
             }, function(token) {
                 if (!token || token.error) {
