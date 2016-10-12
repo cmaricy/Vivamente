@@ -24,38 +24,225 @@
 
     <header class="ccheader">
         <h3>Por favor responda as questões gerais e em seguida o questionário DBI-II.</h3>
-    </header>
-    <div class="wrapper">
-        <form method="post" action="" class="ccform">
-            <div class="ccfield-prepend">
-                <span class="ccform-addon"><i class="fa fa-user fa-2x"></i></span>
-                <input class="ccformfield" type="text" placeholder="Full Name" required>
+    </header>    
+
+        <form method="post" action="/questionario/salvar" class="ccform">
+            
+            <div id="gerais" >
+                
+                    <span>Sexo: </span>
+                    
+                    <input type="radio" name="sexo" value="F">Feminino</div>
+                    <input type="radio" name="sexo" value="M">Masculino</div>
+                    
+                    <br/>
+
+                    <span>Idade: </span>
+                    <input type="number" min="0" max="150" />
+
+                    <br/>
+
+                    <span>Autorizo o uso sigiloso em pesquisa: </span>
+                    <input type="radio" name="auth" value="S">Sim</div>
+                    <input type="radio" name="auth" value="N">Não</div>
+
+                    <br/>
+
+                    <span>Maiores informações sobre a pesquisa: </span>
+                 
             </div>
-            <div class="ccfield-prepend">
-                <span class="ccform-addon"><i class="fa fa-envelope fa-2x"></i></span>
-                <input class="ccformfield" type="text" placeholder="Email" required>
+
+            <br/>
+
+            <div id="questDbi">
+                <p>
+                    <h4>Questionário DBI - II</h4>  
+                    <h5>Instruções</h5>
+                    Este questionário consiste em 21 grupos de afirmações. Por favor, leia cada uma delas cuidadosamente. Depois escolha uma frase de cada grupo (questão), que melhor descreve o modo como você tem se sentido nas <b>duas últimas semanas, incluindo o dia de hoje.</b> Clique na alternativa de número (0, 1, 2 ou 3), correspondente a afirmação escolhida em cada grupo. Se mais de uma afirmação em um grupo lhe parecer igualmente apropriada, escolha a de número mais alto neste grupo. Marque apenas uma afirmação por grupo, incluindo o item 16 (alteração no padrão de sono) e o item 18 (alterações de apetite).
+
+                </p>
+
+                <ol>
+                    <li><h5>Tristeza</h5>
+                    
+                        <input type="radio" value="0" name="tristeza">Não me sinto triste</input><br/>
+                        <input type="radio" value="1" name="tristeza">Eu me sinto triste grande parte do tempo</input><br/>
+                        <input type="radio" value="2" name="tristeza">Estou triste o tempo todo</input><br/>
+                        <input type="radio" value="3" name="tristeza">Estou tão triste ou tão infeliz que não consigo suportar</input><br/>
+                    
+                    </li>
+                    <li><h5>Pessimismo</h5>
+                    
+                        <input type="radio" value="0" name="pessimismo">Não estou desanimado(a) a respeito do meu futuro</input><br/>
+                        <input type="radio" value="1" name="pessimismo">Eu me sinto mais desanimado(a) a respeito do meu futuro do que de costume</input><br/>
+                        <input type="radio" value="2" name="pessimismo">Não espero que as coisas dêem certo pra mim</input><br/>
+                        <input type="radio" value="3" name="pessimismo">Sinto que não há esperança quanto ao meu futuro. Acho que só vai piorar</input><br/>
+                    
+                    </li>
+                    <li><h5>Fracasso passado</h5>
+                    
+                        <input type="radio" value="0" name="fracasso">Não me sinto um(a) fracassado(a)</input><br/>
+                        <input type="radio" value="1" name="fracasso">Tenho fracassado mais do que deveria</input><br/>
+                        <input type="radio" value="2" name="fracasso">Quando penso no passado vejo muitos fracassos</input><br/>
+                        <input type="radio" value="3" name="fracasso">Sinto que como pessoa sou um fracasso total</input><br/>
+                    
+                    </li>                    
+                    <li><h5>Perda de prazer</h5>
+                    
+                        <input type="radio" value="0" name="prazer">Continuo sentindo o mesmo prazer que sentia com as coisas de que eu gosto</input><br/>
+                        <input type="radio" value="1" name="prazer">Não sinto tanto prazer com as coisas que costumava sentir</input><br/>
+                        <input type="radio" value="2" name="prazer">Tenho muito pouco prazer nas coisas que eu costumava gostar</input><br/>
+                        <input type="radio" value="3" name="prazer">Não tenho mais nenhum prazer nas coisas que eu costumava gostar</input><br/>
+                    
+                    </li>                  
+                    <li><h5>Sentimento de culpa</h5>
+                    
+                        <input type="radio" value="0" name="culpa">Não me sinto particularmente culpado(a)</input><br/>
+                        <input type="radio" value="1" name="culpa">Eu me sinto culpado(a) a respeito de várias coisas que fiz e/ou que deveria ter feito</input><br/>
+                        <input type="radio" value="2" name="culpa">Eu me sinto culpado(a) a maior parte do tempo</input><br/>
+                        <input type="radio" value="3" name="culpa">Eu me sinto culpado(a) o tempo todo</input><br/>
+                    
+                    </li>
+                    <li><h5>Sentimento de punição</h5>
+                    
+                        <input type="radio" value="0" name="punicao">Não sinto que estou sendo punido</input><br/>
+                        <input type="radio" value="1" name="punicao">Sinto que posso ser punido(a)</input><br/>
+                        <input type="radio" value="2" name="punicao">Eu acho que serei punido(a)</input><br/>
+                        <input type="radio" value="3" name="punicao">Sinto que estou sendo punido(a)</input><br/>
+                    
+                    </li>                    
+                    <li><h5>Auto-estima</h5>
+                    
+                        <input type="radio" value="0" name="estima">Eu me sinto como sempre me senti em relaççao a mim mesmo(a)</input><br/>
+                        <input type="radio" value="1" name="estima">Perdi a confiança em mim mesmo(a)</input><br/>
+                        <input type="radio" value="2" name="estima">Estou desapontado(a) comigo mesmo(a)</input><br/>
+                        <input type="radio" value="3" name="estima">Não gosto de mim</input><br/>
+                    
+                    </li>                    
+                    <li><h5>Autocrítica</h5>
+                    
+                        <input type="radio" value="0" name="critica">Não me critico nem me culpo mais do que o habitual</input><br/>
+                        <input type="radio" value="1" name="critica">Estou sendo mais crítico(a) comigo mesmo(a) do que costumava ser</input><br/>
+                        <input type="radio" value="2" name="critica">Eu me critico por por todos os meus erros</input><br/>
+                        <input type="radio" value="3" name="critica">Eu me culpo por tudo de ruim que acontece</input><br/>
+                    
+                    </li>                                        
+                    <li><h5>Pensamento ou desejos suicidas</h5>
+                    
+                        <input type="radio" value="0" name="suicida">Não tenho nenhum pensamento de me matar</input><br/>
+                        <input type="radio" value="1" name="suicida">Tenho pensamento de me matar, mas não levaria isso adiante</input><br/>
+                        <input type="radio" value="2" name="suicida">Gostaria de me matar</input><br/>
+                        <input type="radio" value="3" name="suicida">Eu me mataria se tivesse oportunidade</input><br/>
+                    
+                    </li>
+                    <li><h5>Choro</h5>
+                    
+                        <input type="radio" value="0" name="choro">Não choro mais do que chorava antes</input><br/>
+                        <input type="radio" value="1" name="choro">Choro mais agora do que costumava chorar</input><br/>
+                        <input type="radio" value="2" name="choro">Choro por qualquer coisinha</input><br/>
+                        <input type="radio" value="3" name="choro">Sinto vontade de chorar, mas não consigo</input><br/>
+                    
+                    </li>
+                    <li><h5>Agitação</h5>
+                    
+                        <input type="radio" value="0" name="agitacao">Não me sinto mais inquieto(a) ou agitado(a) do que me sentia antes</input><br/>
+                        <input type="radio" value="1" name="agitacao">Eu me sinto mais inquieto(a) ou agitado(a) do que me sentia antes</input><br/>
+                        <input type="radio" value="2" name="agitacao">Eu me sinto tão inquieto(a) ou agitado(a) que  é difícil ficar parado(a)</input><br/>
+                        <input type="radio" value="3" name="agitacao">Estou tão inquieto(a) ou agitado(a) que  tenho que estar sempre me mexendo ou fazendo alguma coisa</input><br/>
+                    
+                    </li>                    
+                    <li><h5>Perda de interesse</h5>
+                    
+                        <input type="radio" value="0" name="interesse">Não perdi o interesse por outras pessoas ou por minhas atividades</input><br/>
+                        <input type="radio" value="1" name="interesse">Estou menos interessado pelas outras pessoas ou coisas do que costumava estar</input><br/>
+                        <input type="radio" value="2" name="interesse">Perdi quase todo o interesse por outras pessoas ou coisas</input><br/>
+                        <input type="radio" value="3" name="interesse">É difícil me interessar por alguma coisa</input><br/>
+                    
+                    </li>
+                    <li><h5>Indecisão</h5>
+                    
+                        <input type="radio" value="0" name="indecisao">Tomo minhas decisões tão bem quanto antes</input><br/>
+                        <input type="radio" value="1" name="indecisao">Acho mais difícil tomar decisões agora do que antes</input><br/>
+                        <input type="radio" value="2" name="indecisao">Tenho muito mais dificuldade em tomar decisões agora do que antes</input><br/>
+                        <input type="radio" value="3" name="indecisao">Tenho dificuldade para tomar qualquer decisão</input><br/>
+                    
+                    </li>      
+                    <li><h5>Desvalorização</h5>
+                    
+                        <input type="radio" value="0" name="desvalorizacao">Não me sinto sem valor</input><br/>
+                        <input type="radio" value="1" name="desvalorizacao">Não me considero hoje tão útil ou não me valorizo como antes</input><br/>
+                        <input type="radio" value="2" name="desvalorizacao">Eu me sinto com menos valor quando me comparo com outras pessoas</input><br/>
+                        <input type="radio" value="3" name="desvalorizacao">Eu me sinto completamente sem valor</input><br/>
+                    
+                    </li>
+                    <li><h5>Falta de energia</h5>
+                    
+                        <input type="radio" value="0" name="energia">Tenho tanta energia hoje como sempre tive</input><br/>
+                        <input type="radio" value="1" name="energia">Tenho menos energia do que costumava ter</input><br/>
+                        <input type="radio" value="2" name="energia">Não tenho energia suficiente para fazer muita coisa</input><br/>
+                        <input type="radio" value="3" name="energia">Não tenho energia suficiente para nada</input><br/>
+                    
+                    </li>                    
+                    <li><h5>Alteração no padrão de sono</h5>
+                    
+                        <input type="radio" value="0" name="sono">Não percebi nenhuma mudança no meu sono</input><br/>
+                        <input type="radio" value="1a" name="sono">Durmo um pouco mais do que o habitual</input><br/>
+                        <input type="radio" value="1b" name="sono">Durmo um pouco menos do que o habitual</input><br/>
+                        <input type="radio" value="2a" name="sono">Durmo muito mais do que o habitual</input><br/>
+                        <input type="radio" value="2b" name="sono">Durmo muito menos do que o habitua</input><br/>
+                        <input type="radio" value="3a" name="sono">Durmo a maior parte do dia</input><br/>
+                        <input type="radio" value="3b" name="sono">Acordo 1 ou 2 horas mais cedo e não consigo voltar a dormir</input><br/>
+                    </li>   
+                    <li><h5>Irritabilidade</h5>
+                    
+                        <input type="radio" value="0" name="irritabilidade">Não estou mais irritado(a) do que o habitual</input><br/>
+                        <input type="radio" value="1" name="irritabilidade">Estou mais irritado(a) do que o habitual</input><br/>
+                        <input type="radio" value="2" name="irritabilidade">Estou muito mais irritado(a) do que o habitual</input><br/>
+                        <input type="radio" value="3" name="irritabilidade">Fico irritado(a) o tempo todo</input><br/>
+                    
+                    </li>    
+                    <li><h5>Alteração de apetite</h5>
+                    
+                        <input type="radio" value="0" name="apetite">Não percebi nenhuma mudança no meu apetite</input><br/>
+                        <input type="radio" value="1a" name="apetite">Meu apetite está um pouco menor do que o habitual</input><br/>
+                        <input type="radio" value="1b" name="apetite">Meu apetite está um pouco maior do que o habitual</input><br/>
+                        <input type="radio" value="2a" name="apetite">Meu apetite está muito menor do que antes</input><br/>
+                        <input type="radio" value="2b" name="apetite">Meu apetite está muito maior do que antes</input><br/>
+                        <input type="radio" value="3a" name="apetite">Não tenho nenhum apetite</input><br/>
+                        <input type="radio" value="3b" name="apetite">Quero comer o tempo todo</input><br/>
+                    </li>
+                    <li><h5>Dificuldade de concentração</h5>
+                    
+                        <input type="radio" value="0" name="concentracao">Posso me concentrar tão bem quanto antes</input><br/>
+                        <input type="radio" value="1" name="concentracao">Não posso me concentrar tão bem quanto habitualmente</input><br/>
+                        <input type="radio" value="2" name="concentracao">É muito difícil manter a concentração em alguma coisa por muito tempo</input><br/>
+                        <input type="radio" value="3" name="concentracao">Eu acho que não consigo me concentrar em nada</input><br/>
+                    
+                    </li>      
+                    <li><h5>Cansaço ou fadiga</h5>
+                    
+                        <input type="radio" value="0" name="fadiga">Não estou mais cansado(a) ou fadigado(a) do que o habitual</input><br/>
+                        <input type="radio" value="1" name="fadiga">Fico cansado(a) ou fadigado(a) mais facilmente do que o habitual</input><br/>
+                        <input type="radio" value="2" name="fadiga">Eu me sinto muito cansado(a) ou fadigado(a) para fazer muitas das coisas que costumava fazer</input><br/>
+                        <input type="radio" value="3" name="fadiga">Eu me sinto muito cansado(a) ou fadigado(a) para fazer a maioria das coisas que costumava fazer</input><br/>
+                    
+                    </li>
+                    <li><h5>Perda de interesse por sexo</h5>
+                    
+                        <input type="radio" value="0" name="int_sexo">Não notei qualquer mudança recente no meu interesse por sexo</input><br/>
+                        <input type="radio" value="1" name="int_sexo">Estou menos interessado(a) em sexo do que costumava estar</input><br/>
+                        <input type="radio" value="2" name="int_sexo">Estou muito menos interessado(a) em sexo agora</input><br/>
+                        <input type="radio" value="3" name="int_sexo">Perdi completamente o interesse por sexo</input><br/>
+                    
+                    </li>                    
+                </ol>
             </div>
-            <div class="ccfield-prepend">
-                <span class="ccform-addon"><i class="fa fa-mobile-phone fa-2x"></i></span>
-                <input class="ccformfield" type="text" placeholder="Phone">
-            </div>
-            <div class="ccfield-prepend">
-                <span class="ccform-addon"><i class="fa fa-info fa-2x"></i></span>
-                <input class="ccformfield" type="text" placeholder="Subject" required>
-            </div>
-            <div class="ccfield-prepend">
-                <span class="ccform-addon"><i class="fa fa-comment fa-2x"></i></span>
-                <textarea class="ccformfield" name="comments" rows="8" placeholder="Message" required></textarea>
-            </div>
-            <div class="ccfield-prepend">
-                <input class="ccbtn" type="submit" value="Confirmar">
-            </div>
+            
         </form>
-    </div>
+    
     <div class="credit">
         <p>Muito obrigada pela sua cooperação!</p>
     </div>
-
 
 </body>
 
