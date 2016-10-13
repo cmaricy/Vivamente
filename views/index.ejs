@@ -15,28 +15,43 @@
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link href='/public/stylesheets/style.css' rel='stylesheet' type='text/css'>
     <link href='/bower_components/bootstrap/dist/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
-    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link href='/bower_components/bootstrap-social/bootstrap-social.css' rel='stylesheet' type='text/css'>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <div class="container">
 
-        <div class="omb_login">
-            <h3 class="omb_authTitle">Faça login para continuar no Vivamente</h3>
-            <div class="row omb_row-sm-offset-3 omb_socialButtons">
-                <div class="col-xs-6">
-                    <a href="/auth/facebook" class="btn btn-lg btn-block omb_btn-facebook">
-                        <i class="fa fa-facebook visible-xs"></i>
-                        <span class="hidden-xs">Facebook</span>
-                    </a>
-
+    <div id="modalPrincipal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="divImg" class="col-xs-6">
+                            <img src="/public/imgs/vivamente.png" class="img-responsive center-block" />
+                        </div>
+                        <div class="col-xs-6 vertical-center">
+                            <a href="/auth/facebook" class="btn btn-block btn-social btn-facebook">
+                                <span class="fa fa-facebook"></span> Entre com Facebook
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <br/>
-            <img src="/public/imgs/vivamente.png" class="img-responsive center-block" />
+            <!-- /.modal-content -->
         </div>
+        <!-- /.modal-dialog -->
     </div>
+    <!-- /.modal -->
+
+
 </body>
+
+<script>
+    // Iniciando o modal
+    window.onload = function() {
+        $("#modalPrincipal").modal('show');
+    }
+</script>
 
 </html>

@@ -6,7 +6,7 @@ app.controller("QuestController",function($scope, $http){
 	$scope.dados.respostas = {};
 
 	$scope.enviar = function(){
-		if ( true == true ){
+		if ( validarEntrada() ){
 			console.log($scope.dados);
 			$http({
 				method: "POST",
@@ -16,7 +16,9 @@ app.controller("QuestController",function($scope, $http){
 			    },
 				data: $scope.dados
 			}).success(function(data){
-
+				$scope.dados = {};
+				$scope.dados.respostas = {};
+				alert("Formulário enviado com sucesso. Obrigado =]");
 			}).error(function(err){
 				alert("Erro encontrado");
 			});

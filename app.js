@@ -1,4 +1,5 @@
 var express = require('express')
+  , cfg = require('./config.json')
   , cookieParser = require('cookie-parser')
   , consign = require('consign')
   , session = require('express-session')
@@ -10,6 +11,7 @@ var express = require('express')
   , configDB = require('./config/database.js')
   , compression = require('compression')
   , methodOverride = require('method-override')
+  , cookie = cookieParser(cfg.SECRET)
   , app = express();
 
 require('./config/passport')(passport); 
@@ -27,7 +29,7 @@ app.disable('x-powered-by');
 app.set('views', __dirname + '/views');
 
 app.use(morgan('dev'));
-app.use(cookieParser());
+app.use(cookie);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(session({
@@ -48,7 +50,7 @@ app.use(methodOverride('_method'));
 app.use('/public',  express.static(__dirname + '/public'));
 app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 
-require('./routes/routes.js')(app, passport);
+require('./routes/routes.js')(app);
 require('./routes/fbroutes.js')(app, passport);
 
 // Permitir proxy reverso (Nginx, GAE, etc)
@@ -57,3 +59,5 @@ app.enable('trust proxy');
 app.listen(process.env.PORT || '3001', function () {
 	console.log("Aplicação rodando na porta 3001");
 });
+
+module.exports = app;

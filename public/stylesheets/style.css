@@ -4,6 +4,25 @@
     For .omb_spanOr use @body-bg instead of white.
 */
 
+.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) { 
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
 @media (min-width: 768px) {
     .omb_row-sm-offset-3 div:first-child[class*="col-"] {
         margin-left: 25%;
@@ -39,4 +58,12 @@
         text-align: right;
 		margin-top:10px;
  	}		
+}
+
+.vertical-center {
+  margin-top: 8%;
+}
+
+#divImg {
+  border-right: 1px solid #3b5998;
 }

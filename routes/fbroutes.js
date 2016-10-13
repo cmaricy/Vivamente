@@ -1,5 +1,5 @@
 module.exports = function(app, passport) {
- 
+ 	
 	app.get('/auth/facebook', passport.authenticate('facebook', {
 		scope : [ 'email', 'user_likes', 'user_posts' ]
 	})); 
