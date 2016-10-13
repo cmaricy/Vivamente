@@ -3,7 +3,8 @@ module.exports = function(app) {
 	var FB = require('fb');
 	var cfg = require('../config.json');
 	var Likes = require('../models/likes')
-  	  , Feed = require('../models/feed');
+  	  , Feed = require('../models/feed')
+      , Quest = require('../models/questionario');
 
     var QuestController = {
     	index : function(req, res){
@@ -22,7 +23,22 @@ module.exports = function(app) {
             });
         },
 
-        salvarFeedsEPosts: function(req, res) {
+        salvar: function(req, res) {
+
+            // salvando o questionario
+            var quest = new Quest();
+            quest.id_usuario = req.user.facebook.id;
+            quest.nome = req.user.facebook.name;
+            quest.sexo = req.body.sexo;
+            quest.idade = req.body.idade;
+            quest.autoriza = req.body.autoriza;
+            quest.created_time = new Date();
+            
+            quest.respostas = req.body.respostas;
+
+            quest.save(function(err, data){
+                if (err)res.send("Erro ao salvar o questionário");
+            });
 
             FB.api('oauth/access_token', {
                 client_id: cfg.CLIENT_ID,
@@ -98,6 +114,7 @@ module.exports = function(app) {
             });
             res.status(200).send("sucesso");
         }
+
     }
     return QuestController;
 }

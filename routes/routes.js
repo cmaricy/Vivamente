@@ -4,7 +4,7 @@ module.exports = function(app, passport) {
  
 	app.get('/', questionario.index);
 	app.get('/profile', questionario.perfil);
-	app.get('/questionario/salvar', questionario.salvarFeedsEPosts);
 	app.get('/questionario', questionario.indexQuestionario);
-	
+	app.post('/questionario/salvar', questionario.salvar);
+		
 };
