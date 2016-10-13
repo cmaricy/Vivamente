@@ -56,8 +56,8 @@ require('./routes/fbroutes.js')(app, passport);
 // Permitir proxy reverso (Nginx, GAE, etc)
 app.enable('trust proxy');
 
-app.listen(process.env.PORT || '3001', function () {
-	console.log("Aplicação rodando na porta 3001");
+app.listen(process.env.PORT, function () {
+	console.log("Aplicação rodando na porta " + process.env.PORT);
 });
 
 module.exports = app;
