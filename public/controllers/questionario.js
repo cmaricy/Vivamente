@@ -4,7 +4,8 @@ app.controller("QuestController",function($scope, $http){
 
 	$scope.dados = {};
 	$scope.dados.respostas = {};
-
+	$scope.mensagem = '';
+	$scope.confirmacao = false;
 	$scope.enviar = function(){
 		if ( validarEntrada() ){
 			console.log($scope.dados);
@@ -16,15 +17,18 @@ app.controller("QuestController",function($scope, $http){
 			    },
 				data: $scope.dados
 			}).success(function(data){
-				$scope.dados = {};
-				$scope.dados.respostas = {};
-				alert("Formulário enviado com sucesso. Obrigado =]");
+				$scope.mensagem = data;
+				if (data == "Salvo com sucesso"){
+					$scope.confirmacao = true;
+					$scope.dados = {};
+					$scope.dados.respostas = {};
+				}
 			}).error(function(err){
-				alert("Erro encontrado");
+				$scope.mensagem = "Erro ao salvar";
 			});
 
 		} else {
-			alert("Ainda existem a serem preenchidos");
+			$scope.mensagem = "Ainda existem campos a serem preenchidos";
 		}
 	}
 

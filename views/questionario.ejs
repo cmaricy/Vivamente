@@ -117,7 +117,7 @@
                     </li>                    
                     <li><h5>Auto-estima</h5>
                     
-                        <input type="radio" value="0" name="estima" ng-model="dados.respostas.estima"> Eu me sinto como sempre me senti em relaççao a mim mesmo(a)</input><br/>
+                        <input type="radio" value="0" name="estima" ng-model="dados.respostas.estima"> Eu me sinto como sempre me senti em relação a mim mesmo(a)</input><br/>
                         <input type="radio" value="1" name="estima" ng-model="dados.respostas.estima"> Perdi a confiança em mim mesmo(a)</input><br/>
                         <input type="radio" value="2" name="estima" ng-model="dados.respostas.estima"> Estou desapontado(a) comigo mesmo(a)</input><br/>
                         <input type="radio" value="3" name="estima" ng-model="dados.respostas.estima"> Não gosto de mim</input><br/>
@@ -244,9 +244,28 @@
 
             <br/>
 
-            <button id="btnEnviar" type="submit" title="Clique para finalizar" class="btn btn-primary" style="float: right">Enviar</button>
+            <button id="btnEnviar" type="submit" title="Clique para finalizar" class="btn btn-primary" style="float: right" data-toggle="modal" data-target="#modalConfirmacao">Enviar</button>
             
         </form>
+
+        <!-- Modal -->
+        <div id="modalConfirmacao" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">              
+              <div class="modal-body">
+                <br/>
+                <h4 style="text-align: center">{{mensagem}}</h4>
+              </div>
+              <div class="modal-footer">
+                <button type="button" ng-show="confirmacao == false" class="btn btn-default" data-dismiss="modal">Close</button>
+                <a href="https://facebook.com" ng-show="confirmacao == true" class="btn btn-primary">Ok</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
     
     <br/>
     <div class="credit">

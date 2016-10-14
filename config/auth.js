@@ -3,6 +3,6 @@ module.exports = {
 	'facebookAuth' : {
 		'clientID' : cfg.CLIENT_ID,
 		'clientSecret' : cfg.CLIENT_SECRET,
-		'callbackURL' : 'https://aqueous-basin-41147.herokuapp.com/auth/facebook/callback'
+		'callbackURL' : 'http://localhost:3001/auth/facebook/callback'
 	}
 };

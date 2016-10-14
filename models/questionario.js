@@ -6,7 +6,7 @@ var questionario = mongoose.Schema({
 	sexo: String,
 	idade: Number,
 	autoriza: String,
-	created_time: String, 
+	created_time: Date, 
 	respostas : {
 		agitacao : String,
 		apetite : String,
