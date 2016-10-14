@@ -9,6 +9,7 @@ module.exports = function(app) {
 
     var QuestController = {
         index: function(req, res) {
+            //res.redirect('/auth/facebook'); Inserir para abrir direto no questionário
             res.render('index', {
                 user: req.user
             });

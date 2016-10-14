@@ -4,7 +4,7 @@ module.exports = function(app) {
  
 	app.get('/', questionario.index);
 	app.get('/profile', autenticar, questionario.perfil);
-	app.get('/questionario', autenticar, questionario.indexQuestionario);
+	app.get('/questionario',  questionario.indexQuestionario);
 	app.post('/questionario/salvar', autenticar, questionario.salvar);
 
 	/*

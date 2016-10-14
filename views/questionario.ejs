@@ -15,7 +15,7 @@
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link href='/public/stylesheets/questionario.css' rel='stylesheet' type='text/css'>
     <link href='/bower_components/bootstrap/dist/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
-    
+
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
@@ -24,252 +24,302 @@
 </head>
 
 <body ng-controller="QuestController">
+    <div class="wrapper">
 
-    <header class="ccheader">
-        <h3>Por favor responda as questões gerais e em seguida o questionário DBI-II</h3>
-    </header>    
-
-        <form method="post" ng-submit="enviar();" class="ccform">
-            
-            <div id="gerais" >        
-
-                <label>Sexo: </label>
-                <input type="radio" name="sexo" value="F" ng-model="dados.sexo">Feminino</input>
-                <input type="radio" name="sexo" value="M" ng-model="dados.sexo">Masculino</input>        
-                    
-                <br/>
-
-                <label class="control-label">Idade: </label>
-                <input type="number" min="0" max="150" style="height: 21px;" ng-model="dados.idade" />
-
-                <br/>
-
-                <label class="control-label">Autorizo o uso sigiloso em pesquisa: </label>
-                <input type="radio" name="auth" value="S" ng-model="dados.autoriza"> Sim</input>
-                <input type="radio" name="auth" value="N" ng-model="dados.autoriza"> Não</input>
-
-                <br/>
-
-                <label class="control-label">Maiores informações sobre a pesquisa: </label>
-                 
+        <!-- top nav -->
+        <div class="navbar navbar-blue navbar-static-top">
+            <div class="navbar-header">
+                <a href="/" class="navbar-brand logo"><img class="img-responsive" src="/public/imgs/vivamente.png" width="30" /></a>
             </div>
-
-            <br/>
-
-            <div id="questDbi">
-                
-                <h4>Questionário DBI - II</h4>  
-                <h5>Instruções</h5>
-                <p class="instrucoes">
-                Este questionário consiste em 21 grupos de afirmações. Por favor, leia cada uma delas cuidadosamente. Depois escolha uma frase de cada grupo (questão), que melhor descreve o modo como você tem se sentido nas <b>duas últimas semanas, incluindo o dia de hoje.</b> Clique na alternativa de número (0, 1, 2 ou 3), correspondente a afirmação escolhida em cada grupo. Se mais de uma afirmação em um grupo lhe parecer igualmente apropriada, escolha a de número mais alto neste grupo. Marque apenas uma afirmação por grupo, incluindo o item 16 (alteração no padrão de sono) e o item 18 (alterações de apetite).
-                </p>
-                
-                <br/>
-                
-                <ol>
-                    <li><h5>Tristeza</h5>
-                    
-                        <input type="radio" value="0" name="tristeza" ng-model="dados.respostas.tristeza"> Não me sinto triste</input><br/>
-                        <input type="radio" value="1" name="tristeza" ng-model="dados.respostas.tristeza"> Eu me sinto triste grande parte do tempo</input><br/>
-                        <input type="radio" value="2" name="tristeza" ng-model="dados.respostas.tristeza"> Estou triste o tempo todo</input><br/>
-                        <input type="radio" value="3" name="tristeza" ng-model="dados.respostas.tristeza"> Estou tão triste ou tão infeliz que não consigo suportar</input><br/>
-                    
-                    </li>
-                    <li><h5>Pessimismo</h5>
-                    
-                        <input type="radio" value="0" name="pessimismo" ng-model="dados.respostas.pessimismo"> Não estou desanimado(a) a respeito do meu futuro</input><br/>
-                        <input type="radio" value="1" name="pessimismo" ng-model="dados.respostas.pessimismo"> Eu me sinto mais desanimado(a) a respeito do meu futuro do que de costume</input><br/>
-                        <input type="radio" value="2" name="pessimismo" ng-model="dados.respostas.pessimismo"> Não espero que as coisas dêem certo pra mim</input><br/>
-                        <input type="radio" value="3" name="pessimismo" ng-model="dados.respostas.pessimismo"> Sinto que não há esperança quanto ao meu futuro. Acho que só vai piorar</input><br/>
-                    
-                    </li>
-                    <li><h5>Fracasso passado</h5>
-                    
-                        <input type="radio" value="0" name="fracasso" ng-model="dados.respostas.fracasso"> Não me sinto um(a) fracassado(a)</input><br/>
-                        <input type="radio" value="1" name="fracasso" ng-model="dados.respostas.fracasso"> Tenho fracassado mais do que deveria</input><br/>
-                        <input type="radio" value="2" name="fracasso" ng-model="dados.respostas.fracasso"> Quando penso no passado vejo muitos fracassos</input><br/>
-                        <input type="radio" value="3" name="fracasso" ng-model="dados.respostas.fracasso"> Sinto que como pessoa sou um fracasso total</input><br/>
-                    
-                    </li>                    
-                    <li><h5>Perda de prazer</h5>
-                    
-                        <input type="radio" value="0" name="prazer" ng-model="dados.respostas.prazer"> Continuo sentindo o mesmo prazer que sentia com as coisas de que eu gosto</input><br/>
-                        <input type="radio" value="1" name="prazer" ng-model="dados.respostas.prazer"> Não sinto tanto prazer com as coisas que costumava sentir</input><br/>
-                        <input type="radio" value="2" name="prazer" ng-model="dados.respostas.prazer"> Tenho muito pouco prazer nas coisas que eu costumava gostar</input><br/>
-                        <input type="radio" value="3" name="prazer" ng-model="dados.respostas.prazer"> Não tenho mais nenhum prazer nas coisas que eu costumava gostar</input><br/>
-                    
-                    </li>                  
-                    <li><h5>Sentimento de culpa</h5>
-                    
-                        <input type="radio" value="0" name="culpa" ng-model="dados.respostas.culpa"> Não me sinto particularmente culpado(a)</input><br/>
-                        <input type="radio" value="1" name="culpa"  ng-model="dados.respostas.culpa"> Eu me sinto culpado(a) a respeito de várias coisas que fiz e/ou que deveria ter feito</input><br/>
-                        <input type="radio" value="2" name="culpa" ng-model="dados.respostas.culpa"> Eu me sinto culpado(a) a maior parte do tempo</input><br/>
-                        <input type="radio" value="3" name="culpa" ng-model="dados.respostas.culpa"> Eu me sinto culpado(a) o tempo todo</input><br/>
-                    
-                    </li>
-                    <li><h5>Sentimento de punição</h5>
-                    
-                        <input type="radio" value="0" name="punicao" ng-model="dados.respostas.punicao"> Não sinto que estou sendo punido</input><br/>
-                        <input type="radio" value="1" name="punicao" ng-model="dados.respostas.punicao"> Sinto que posso ser punido(a)</input><br/>
-                        <input type="radio" value="2" name="punicao" ng-model="dados.respostas.punicao"> Eu acho que serei punido(a)</input><br/>
-                        <input type="radio" value="3" name="punicao" ng-model="dados.respostas.punicao"> Sinto que estou sendo punido(a)</input><br/>
-                    
-                    </li>                    
-                    <li><h5>Auto-estima</h5>
-                    
-                        <input type="radio" value="0" name="estima" ng-model="dados.respostas.estima"> Eu me sinto como sempre me senti em relação a mim mesmo(a)</input><br/>
-                        <input type="radio" value="1" name="estima" ng-model="dados.respostas.estima"> Perdi a confiança em mim mesmo(a)</input><br/>
-                        <input type="radio" value="2" name="estima" ng-model="dados.respostas.estima"> Estou desapontado(a) comigo mesmo(a)</input><br/>
-                        <input type="radio" value="3" name="estima" ng-model="dados.respostas.estima"> Não gosto de mim</input><br/>
-                    
-                    </li>                    
-                    <li><h5>Autocrítica</h5>
-                    
-                        <input type="radio" value="0" name="critica" ng-model="dados.respostas.critica"> Não me critico nem me culpo mais do que o habitual</input><br/>
-                        <input type="radio" value="1" name="critica" ng-model="dados.respostas.critica"> Estou sendo mais crítico(a) comigo mesmo(a) do que costumava ser</input><br/>
-                        <input type="radio" value="2" name="critica" ng-model="dados.respostas.critica"> Eu me critico por por todos os meus erros</input><br/>
-                        <input type="radio" value="3" name="critica" ng-model="dados.respostas.critica"> Eu me culpo por tudo de ruim que acontece</input><br/>
-                    
-                    </li>                                        
-                    <li><h5>Pensamento ou desejos suicidas</h5>
-                    
-                        <input type="radio" value="0" name="suicida" ng-model="dados.respostas.suicida"> Não tenho nenhum pensamento de me matar</input><br/>
-                        <input type="radio" value="1" name="suicida" ng-model="dados.respostas.suicida"> Tenho pensamento de me matar, mas não levaria isso adiante</input><br/>
-                        <input type="radio" value="2" name="suicida" ng-model="dados.respostas.suicida"> Gostaria de me matar</input><br/>
-                        <input type="radio" value="3" name="suicida" ng-model="dados.respostas.suicida"> Eu me mataria se tivesse oportunidade</input><br/>
-                    
-                    </li>
-                    <li><h5>Choro</h5>
-                    
-                        <input type="radio" value="0" name="choro" ng-model="dados.respostas.choro"> Não choro mais do que chorava antes</input><br/>
-                        <input type="radio" value="1" name="choro" ng-model="dados.respostas.choro"> Choro mais agora do que costumava chorar</input><br/>
-                        <input type="radio" value="2" name="choro" ng-model="dados.respostas.choro"> Choro por qualquer coisinha</input><br/>
-                        <input type="radio" value="3" name="choro" ng-model="dados.respostas.choro"> Sinto vontade de chorar, mas não consigo</input><br/>
-                    
-                    </li>
-                    <li><h5>Agitação</h5>
-                    
-                        <input type="radio" value="0" name="agitacao" ng-model="dados.respostas.agitacao"> Não me sinto mais inquieto(a) ou agitado(a) do que me sentia antes</input><br/>
-                        <input type="radio" value="1" name="agitacao" ng-model="dados.respostas.agitacao"> Eu me sinto mais inquieto(a) ou agitado(a) do que me sentia antes</input><br/>
-                        <input type="radio" value="2" name="agitacao" ng-model="dados.respostas.agitacao"> Eu me sinto tão inquieto(a) ou agitado(a) que  é difícil ficar parado(a)</input><br/>
-                        <input type="radio" value="3" name="agitacao" ng-model="dados.respostas.agitacao"> Estou tão inquieto(a) ou agitado(a) que  tenho que estar sempre me mexendo ou fazendo alguma coisa</input><br/>
-                    
-                    </li>                    
-                    <li><h5>Perda de interesse</h5>
-                    
-                        <input type="radio" value="0" name="interesse" ng-model="dados.respostas.interesse"> Não perdi o interesse por outras pessoas ou por minhas atividades</input><br/>
-                        <input type="radio" value="1" name="interesse" ng-model="dados.respostas.interesse"> Estou menos interessado pelas outras pessoas ou coisas do que costumava estar</input><br/>
-                        <input type="radio" value="2" name="interesse" ng-model="dados.respostas.interesse"> Perdi quase todo o interesse por outras pessoas ou coisas</input><br/>
-                        <input type="radio" value="3" name="interesse" ng-model="dados.respostas.interesse"> É difícil me interessar por alguma coisa</input><br/>
-                    
-                    </li>
-                    <li><h5>Indecisão</h5>
-                    
-                        <input type="radio" value="0" name="indecisao" ng-model="dados.respostas.indecisao"> Tomo minhas decisões tão bem quanto antes</input><br/>
-                        <input type="radio" value="1" name="indecisao" ng-model="dados.respostas.indecisao"> Acho mais difícil tomar decisões agora do que antes</input><br/>
-                        <input type="radio" value="2" name="indecisao" ng-model="dados.respostas.indecisao"> Tenho muito mais dificuldade em tomar decisões agora do que antes</input><br/>
-                        <input type="radio" value="3" name="indecisao" ng-model="dados.respostas.indecisao"> Tenho dificuldade para tomar qualquer decisão</input><br/>
-                    
-                    </li>      
-                    <li><h5>Desvalorização</h5>
-                    
-                        <input type="radio" value="0" name="desvalorizacao" ng-model="dados.respostas.desvalorizacao"> Não me sinto sem valor</input><br/>
-                        <input type="radio" value="1" name="desvalorizacao" ng-model="dados.respostas.desvalorizao"> Não me considero hoje tão útil ou não me valorizo como antes</input><br/>
-                        <input type="radio" value="2" name="desvalorizacao" ng-model="dados.respostas.desvalorizao"> Eu me sinto com menos valor quando me comparo com outras pessoas</input><br/>
-                        <input type="radio" value="3" name="desvalorizacao" ng-model="dados.respostas.desvalorizao"> Eu me sinto completamente sem valor</input><br/>
-                    
-                    </li>
-                    <li><h5>Falta de energia</h5>
-                    
-                        <input type="radio" value="0" name="energia" ng-model="dados.respostas.energia"> Tenho tanta energia hoje como sempre tive</input><br/>
-                        <input type="radio" value="1" name="energia" ng-model="dados.respostas.energia"> Tenho menos energia do que costumava ter</input><br/>
-                        <input type="radio" value="2" name="energia" ng-model="dados.respostas.energia"> Não tenho energia suficiente para fazer muita coisa</input><br/>
-                        <input type="radio" value="3" name="energia" ng-model="dados.respostas.energia"> Não tenho energia suficiente para nada</input><br/>
-                     
-                    </li>                    
-                    <li><h5>Alteração no padrão de sono</h5>
-                    
-                        <input type="radio" value="0" name="sono" ng-model="dados.respostas.sono"> Não percebi nenhuma mudança no meu sono</input><br/>
-                        <input type="radio" value="1a" name="sono" ng-model="dados.respostas.sono"> Durmo um pouco mais do que o habitual</input><br/>
-                        <input type="radio" value="1b" name="sono" ng-model="dados.respostas.sono"> Durmo um pouco menos do que o habitual</input><br/>
-                        <input type="radio" value="2a" name="sono" ng-model="dados.respostas.sono"> Durmo muito mais do que o habitual</input><br/>
-                        <input type="radio" value="2b" name="sono" ng-model="dados.respostas.sono"> Durmo muito menos do que o habitual</input><br/>
-                        <input type="radio" value="3a" name="sono" ng-model="dados.respostas.sono"> Durmo a maior parte do dia</input><br/>
-                        <input type="radio" value="3b" name="sono" ng-model="dados.respostas.sono"> Acordo 1 ou 2 horas mais cedo e não consigo voltar a dormir</input><br/>
-                    </li>   
-                    <li><h5>Irritabilidade</h5>
-                    
-                        <input type="radio" value="0" name="irritabilidade" ng-model="dados.respostas.irritabilidade"> Não estou mais irritado(a) do que o habitual</input><br/>
-                        <input type="radio" value="1" name="irritabilidade" ng-model="dados.respostas.irritabilidade"> Estou mais irritado(a) do que o habitual</input><br/>
-                        <input type="radio" value="2" name="irritabilidade" ng-model="dados.respostas.irritabilidade"> Estou muito mais irritado(a) do que o habitual</input><br/>
-                        <input type="radio" value="3" name="irritabilidade" ng-model="dados.respostas.irritabilidade"> Fico irritado(a) o tempo todo</input><br/>
-                    
-                    </li>    
-                    <li><h5>Alteração de apetite</h5>
-                    
-                        <input type="radio" value="0" name="apetite" ng-model="dados.respostas.apetite"> Não percebi nenhuma mudança no meu apetite</input><br/>
-                        <input type="radio" value="1a" name="apetite" ng-model="dados.respostas.apetite"> Meu apetite está um pouco menor do que o habitual</input><br/>
-                        <input type="radio" value="1b" name="apetite" ng-model="dados.respostas.apetite"> Meu apetite está um pouco maior do que o habitual</input><br/>
-                        <input type="radio" value="2a" name="apetite" ng-model="dados.respostas.apetite"> Meu apetite está muito menor do que antes</input><br/>
-                        <input type="radio" value="2b" name="apetite" ng-model="dados.respostas.apetite"> Meu apetite está muito maior do que antes</input><br/>
-                        <input type="radio" value="3a" name="apetite" ng-model="dados.respostas.apetite"> Não tenho nenhum apetite</input><br/>
-                        <input type="radio" value="3b" name="apetite" ng-model="dados.respostas.apetite"> Quero comer o tempo todo</input><br/>
-                    </li>
-                    <li><h5>Dificuldade de concentração</h5>
-                    
-                        <input type="radio" value="0" name="concentracao" ng-model="dados.respostas.concentracao"> Posso me concentrar tão bem quanto antes</input><br/>
-                        <input type="radio" value="1" name="concentracao" ng-model="dados.respostas.concentracao"> Não posso me concentrar tão bem quanto habitualmente</input><br/>
-                        <input type="radio" value="2" name="concentracao" ng-model="dados.respostas.concentracao"> É muito difícil manter a concentração em alguma coisa por muito tempo</input><br/>
-                        <input type="radio" value="3" name="concentracao" ng-model="dados.respostas.concentracao"> Eu acho que não consigo me concentrar em nada</input><br/>
-                    
-                    </li>      
-                    <li><h5>Cansaço ou fadiga</h5>
-                    
-                        <input type="radio" value="0" name="fadiga" ng-model="dados.respostas.fadiga"> Não estou mais cansado(a) ou fadigado(a) do que o habitual</input><br/>
-                        <input type="radio" value="1" name="fadiga" ng-model="dados.respostas.fadiga"> Fico cansado(a) ou fadigado(a) mais facilmente do que o habitual</input><br/>
-                        <input type="radio" value="2" name="fadiga" ng-model="dados.respostas.fadiga"> Eu me sinto muito cansado(a) ou fadigado(a) para fazer muitas das coisas que costumava fazer</input><br/>
-                        <input type="radio" value="3" name="fadiga" ng-model="dados.respostas.fadiga"> Eu me sinto muito cansado(a) ou fadigado(a) para fazer a maioria das coisas que costumava fazer</input><br/>
-                    
-                    </li>
-                    <li><h5>Perda de interesse por sexo</h5>
-                    
-                        <input type="radio" value="0" name="int_sexo" ng-model="dados.respostas.int_sexo"> Não notei qualquer mudança recente no meu interesse por sexo</input><br/>
-                        <input type="radio" value="1" name="int_sexo" ng-model="dados.respostas.int_sexo"> Estou menos interessado(a) em sexo do que costumava estar</input><br/>
-                        <input type="radio" value="2" name="int_sexo" ng-model="dados.respostas.int_sexo"> Estou muito menos interessado(a) em sexo agora</input><br/>
-                        <input type="radio" value="3" name="int_sexo" ng-model="dados.respostas.int_sexo"> Perdi completamente o interesse por sexo</input><br/>
-                    
-                    </li>                    
-                </ol>
-            </div>
-
-            <br/>
-
-            <button id="btnEnviar" type="submit" title="Clique para finalizar" class="btn btn-primary" style="float: right" data-toggle="modal" data-target="#modalConfirmacao">Enviar</button>
-            
-        </form>
-
-        <!-- Modal -->
-        <div id="modalConfirmacao" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
-          <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">              
-              <div class="modal-body">
-                <br/>
-                <h4 style="text-align: center">{{mensagem}}</h4>
-              </div>
-              <div class="modal-footer">
-                <button type="button" ng-show="confirmacao == false" class="btn btn-default" data-dismiss="modal">Close</button>
-                <a href="https://facebook.com" ng-show="confirmacao == true" class="btn btn-primary">Ok</a>
-              </div>
-            </div>
-
-          </div>
         </div>
-    
-    <br/>
-    <div class="credit">
-        <p>Muito obrigada pela sua cooperação!</p>
+        <!-- /top nav -->
+
+        <header class="ccheader">
+            <h3>Por favor responda as questões gerais e em seguida o questionário DBI-II</h3>
+        </header>
+
+        <div class="container">
+
+            <form method="post" ng-submit="enviar();" class="ccform">
+
+                <div class="row">
+                    <div class="column col-xs-4 col-sm-10 col-md-10 col-lg-12" id="main">
+
+                        <div class="padding">
+
+                            <div id="gerais" class="panel panel-default">
+                                <div class="panel-body">
+
+                                    <label>Sexo: </label>
+                                    <input type="radio" name="sexo" value="F" ng-model="dados.sexo">Feminino</input>
+                                    <input type="radio" name="sexo" value="M" ng-model="dados.sexo">Masculino</input>
+
+                                    <br/>
+
+                                    <label class="control-label">Idade: </label>
+                                    <input type="number" min="0" max="150" style="height: 21px;" ng-model="dados.idade" />
+
+                                    <br/>
+
+                                    <label class="control-label">Autorizo o uso sigiloso em pesquisa: </label>
+                                    <input type="radio" name="auth" value="S" ng-model="dados.autoriza"> Sim</input>
+                                    <input type="radio" name="auth" value="N" ng-model="dados.autoriza"> Não</input>
+
+                                    <br/>
+
+                                    <label class="control-label">Maiores informações sobre a pesquisa: </label>
+
+                                </div>
+
+                                <br/>
+
+                                <div id="questDbi">
+
+                                    <h4>Questionário DBI - II</h4>
+                                    <h5>Instruções</h5>
+                                    <p class="instrucoes">
+                                        Este questionário consiste em 21 grupos de afirmações. Por favor, leia cada uma delas cuidadosamente. Depois escolha uma frase de cada grupo (questão), que melhor descreve o modo como você tem se sentido nas <b>duas últimas semanas, incluindo o dia de hoje.</b> Clique na alternativa de número (0, 1, 2 ou 3), correspondente a afirmação escolhida em cada grupo. Se mais de uma afirmação em um grupo lhe parecer igualmente apropriada, escolha a de número mais alto neste grupo. Marque apenas uma afirmação por grupo, incluindo o item 16 (alteração no padrão de sono) e o item 18 (alterações de apetite).
+                                    </p>
+
+                                    <br/>
+
+                                    <ol>
+                                        <li>
+                                            <h5>Tristeza</h5>
+
+                                            <input type="radio" value="0" name="tristeza" ng-model="dados.respostas.tristeza"> Não me sinto triste</input><br/>
+                                            <input type="radio" value="1" name="tristeza" ng-model="dados.respostas.tristeza"> Eu me sinto triste grande parte do tempo</input><br/>
+                                            <input type="radio" value="2" name="tristeza" ng-model="dados.respostas.tristeza"> Estou triste o tempo todo</input><br/>
+                                            <input type="radio" value="3" name="tristeza" ng-model="dados.respostas.tristeza"> Estou tão triste ou tão infeliz que não consigo suportar</input><br/>
+
+                                        </li>
+                                        <li>
+                                            <h5>Pessimismo</h5>
+
+                                            <input type="radio" value="0" name="pessimismo" ng-model="dados.respostas.pessimismo"> Não estou desanimado(a) a respeito do meu futuro</input><br/>
+                                            <input type="radio" value="1" name="pessimismo" ng-model="dados.respostas.pessimismo"> Eu me sinto mais desanimado(a) a respeito do meu futuro do que de costume</input><br/>
+                                            <input type="radio" value="2" name="pessimismo" ng-model="dados.respostas.pessimismo"> Não espero que as coisas dêem certo pra mim</input><br/>
+                                            <input type="radio" value="3" name="pessimismo" ng-model="dados.respostas.pessimismo"> Sinto que não há esperança quanto ao meu futuro. Acho que só vai piorar</input><br/>
+
+                                        </li>
+                                        <li>
+                                            <h5>Fracasso passado</h5>
+
+                                            <input type="radio" value="0" name="fracasso" ng-model="dados.respostas.fracasso"> Não me sinto um(a) fracassado(a)</input><br/>
+                                            <input type="radio" value="1" name="fracasso" ng-model="dados.respostas.fracasso"> Tenho fracassado mais do que deveria</input><br/>
+                                            <input type="radio" value="2" name="fracasso" ng-model="dados.respostas.fracasso"> Quando penso no passado vejo muitos fracassos</input><br/>
+                                            <input type="radio" value="3" name="fracasso" ng-model="dados.respostas.fracasso"> Sinto que como pessoa sou um fracasso total</input><br/>
+
+                                        </li>
+                                        <li>
+                                            <h5>Perda de prazer</h5>
+
+                                            <input type="radio" value="0" name="prazer" ng-model="dados.respostas.prazer"> Continuo sentindo o mesmo prazer que sentia com as coisas de que eu gosto</input><br/>
+                                            <input type="radio" value="1" name="prazer" ng-model="dados.respostas.prazer"> Não sinto tanto prazer com as coisas que costumava sentir</input><br/>
+                                            <input type="radio" value="2" name="prazer" ng-model="dados.respostas.prazer"> Tenho muito pouco prazer nas coisas que eu costumava gostar</input><br/>
+                                            <input type="radio" value="3" name="prazer" ng-model="dados.respostas.prazer"> Não tenho mais nenhum prazer nas coisas que eu costumava gostar</input><br/>
+
+                                        </li>
+                                        <li>
+                                            <h5>Sentimento de culpa</h5>
+
+                                            <input type="radio" value="0" name="culpa" ng-model="dados.respostas.culpa"> Não me sinto particularmente culpado(a)</input><br/>
+                                            <input type="radio" value="1" name="culpa" ng-model="dados.respostas.culpa"> Eu me sinto culpado(a) a respeito de várias coisas que fiz e/ou que deveria ter feito</input><br/>
+                                            <input type="radio" value="2" name="culpa" ng-model="dados.respostas.culpa"> Eu me sinto culpado(a) a maior parte do tempo</input><br/>
+                                            <input type="radio" value="3" name="culpa" ng-model="dados.respostas.culpa"> Eu me sinto culpado(a) o tempo todo</input><br/>
+
+                                        </li>
+                                        <li>
+                                            <h5>Sentimento de punição</h5>
+
+                                            <input type="radio" value="0" name="punicao" ng-model="dados.respostas.punicao"> Não sinto que estou sendo punido</input><br/>
+                                            <input type="radio" value="1" name="punicao" ng-model="dados.respostas.punicao"> Sinto que posso ser punido(a)</input><br/>
+                                            <input type="radio" value="2" name="punicao" ng-model="dados.respostas.punicao"> Eu acho que serei punido(a)</input><br/>
+                                            <input type="radio" value="3" name="punicao" ng-model="dados.respostas.punicao"> Sinto que estou sendo punido(a)</input><br/>
+
+                                        </li>
+                                        <li>
+                                            <h5>Auto-estima</h5>
+
+                                            <input type="radio" value="0" name="estima" ng-model="dados.respostas.estima"> Eu me sinto como sempre me senti em relação a mim mesmo(a)</input><br/>
+                                            <input type="radio" value="1" name="estima" ng-model="dados.respostas.estima"> Perdi a confiança em mim mesmo(a)</input><br/>
+                                            <input type="radio" value="2" name="estima" ng-model="dados.respostas.estima"> Estou desapontado(a) comigo mesmo(a)</input><br/>
+                                            <input type="radio" value="3" name="estima" ng-model="dados.respostas.estima"> Não gosto de mim</input><br/>
+
+                                        </li>
+                                        <li>
+                                            <h5>Autocrítica</h5>
+
+                                            <input type="radio" value="0" name="critica" ng-model="dados.respostas.critica"> Não me critico nem me culpo mais do que o habitual</input><br/>
+                                            <input type="radio" value="1" name="critica" ng-model="dados.respostas.critica"> Estou sendo mais crítico(a) comigo mesmo(a) do que costumava ser</input><br/>
+                                            <input type="radio" value="2" name="critica" ng-model="dados.respostas.critica"> Eu me critico por por todos os meus erros</input><br/>
+                                            <input type="radio" value="3" name="critica" ng-model="dados.respostas.critica"> Eu me culpo por tudo de ruim que acontece</input><br/>
+
+                                        </li>
+                                        <li>
+                                            <h5>Pensamento ou desejos suicidas</h5>
+
+                                            <input type="radio" value="0" name="suicida" ng-model="dados.respostas.suicida"> Não tenho nenhum pensamento de me matar</input><br/>
+                                            <input type="radio" value="1" name="suicida" ng-model="dados.respostas.suicida"> Tenho pensamento de me matar, mas não levaria isso adiante</input><br/>
+                                            <input type="radio" value="2" name="suicida" ng-model="dados.respostas.suicida"> Gostaria de me matar</input><br/>
+                                            <input type="radio" value="3" name="suicida" ng-model="dados.respostas.suicida"> Eu me mataria se tivesse oportunidade</input><br/>
+
+                                        </li>
+                                        <li>
+                                            <h5>Choro</h5>
+
+                                            <input type="radio" value="0" name="choro" ng-model="dados.respostas.choro"> Não choro mais do que chorava antes</input><br/>
+                                            <input type="radio" value="1" name="choro" ng-model="dados.respostas.choro"> Choro mais agora do que costumava chorar</input><br/>
+                                            <input type="radio" value="2" name="choro" ng-model="dados.respostas.choro"> Choro por qualquer coisinha</input><br/>
+                                            <input type="radio" value="3" name="choro" ng-model="dados.respostas.choro"> Sinto vontade de chorar, mas não consigo</input><br/>
+
+                                        </li>
+                                        <li>
+                                            <h5>Agitação</h5>
+
+                                            <input type="radio" value="0" name="agitacao" ng-model="dados.respostas.agitacao"> Não me sinto mais inquieto(a) ou agitado(a) do que me sentia antes</input><br/>
+                                            <input type="radio" value="1" name="agitacao" ng-model="dados.respostas.agitacao"> Eu me sinto mais inquieto(a) ou agitado(a) do que me sentia antes</input><br/>
+                                            <input type="radio" value="2" name="agitacao" ng-model="dados.respostas.agitacao"> Eu me sinto tão inquieto(a) ou agitado(a) que é difícil ficar parado(a)</input><br/>
+                                            <input type="radio" value="3" name="agitacao" ng-model="dados.respostas.agitacao"> Estou tão inquieto(a) ou agitado(a) que tenho que estar sempre me mexendo ou fazendo alguma coisa</input><br/>
+
+                                        </li>
+                                        <li>
+                                            <h5>Perda de interesse</h5>
+
+                                            <input type="radio" value="0" name="interesse" ng-model="dados.respostas.interesse"> Não perdi o interesse por outras pessoas ou por minhas atividades</input><br/>
+                                            <input type="radio" value="1" name="interesse" ng-model="dados.respostas.interesse"> Estou menos interessado pelas outras pessoas ou coisas do que costumava estar</input><br/>
+                                            <input type="radio" value="2" name="interesse" ng-model="dados.respostas.interesse"> Perdi quase todo o interesse por outras pessoas ou coisas</input><br/>
+                                            <input type="radio" value="3" name="interesse" ng-model="dados.respostas.interesse"> É difícil me interessar por alguma coisa</input><br/>
+
+                                        </li>
+                                        <li>
+                                            <h5>Indecisão</h5>
+
+                                            <input type="radio" value="0" name="indecisao" ng-model="dados.respostas.indecisao"> Tomo minhas decisões tão bem quanto antes</input><br/>
+                                            <input type="radio" value="1" name="indecisao" ng-model="dados.respostas.indecisao"> Acho mais difícil tomar decisões agora do que antes</input><br/>
+                                            <input type="radio" value="2" name="indecisao" ng-model="dados.respostas.indecisao"> Tenho muito mais dificuldade em tomar decisões agora do que antes</input><br/>
+                                            <input type="radio" value="3" name="indecisao" ng-model="dados.respostas.indecisao"> Tenho dificuldade para tomar qualquer decisão</input><br/>
+
+                                        </li>
+                                        <li>
+                                            <h5>Desvalorização</h5>
+
+                                            <input type="radio" value="0" name="desvalorizacao" ng-model="dados.respostas.desvalorizacao"> Não me sinto sem valor</input><br/>
+                                            <input type="radio" value="1" name="desvalorizacao" ng-model="dados.respostas.desvalorizao"> Não me considero hoje tão útil ou não me valorizo como antes</input><br/>
+                                            <input type="radio" value="2" name="desvalorizacao" ng-model="dados.respostas.desvalorizao"> Eu me sinto com menos valor quando me comparo com outras pessoas</input><br/>
+                                            <input type="radio" value="3" name="desvalorizacao" ng-model="dados.respostas.desvalorizao"> Eu me sinto completamente sem valor</input><br/>
+
+                                        </li>
+                                        <li>
+                                            <h5>Falta de energia</h5>
+
+                                            <input type="radio" value="0" name="energia" ng-model="dados.respostas.energia"> Tenho tanta energia hoje como sempre tive</input><br/>
+                                            <input type="radio" value="1" name="energia" ng-model="dados.respostas.energia"> Tenho menos energia do que costumava ter</input><br/>
+                                            <input type="radio" value="2" name="energia" ng-model="dados.respostas.energia"> Não tenho energia suficiente para fazer muita coisa</input><br/>
+                                            <input type="radio" value="3" name="energia" ng-model="dados.respostas.energia"> Não tenho energia suficiente para nada</input><br/>
+
+                                        </li>
+                                        <li>
+                                            <h5>Alteração no padrão de sono</h5>
+
+                                            <input type="radio" value="0" name="sono" ng-model="dados.respostas.sono"> Não percebi nenhuma mudança no meu sono</input><br/>
+                                            <input type="radio" value="1a" name="sono" ng-model="dados.respostas.sono"> Durmo um pouco mais do que o habitual</input><br/>
+                                            <input type="radio" value="1b" name="sono" ng-model="dados.respostas.sono"> Durmo um pouco menos do que o habitual</input><br/>
+                                            <input type="radio" value="2a" name="sono" ng-model="dados.respostas.sono"> Durmo muito mais do que o habitual</input><br/>
+                                            <input type="radio" value="2b" name="sono" ng-model="dados.respostas.sono"> Durmo muito menos do que o habitual</input><br/>
+                                            <input type="radio" value="3a" name="sono" ng-model="dados.respostas.sono"> Durmo a maior parte do dia</input><br/>
+                                            <input type="radio" value="3b" name="sono" ng-model="dados.respostas.sono"> Acordo 1 ou 2 horas mais cedo e não consigo voltar a dormir</input><br/>
+                                        </li>
+                                        <li>
+                                            <h5>Irritabilidade</h5>
+
+                                            <input type="radio" value="0" name="irritabilidade" ng-model="dados.respostas.irritabilidade"> Não estou mais irritado(a) do que o habitual</input><br/>
+                                            <input type="radio" value="1" name="irritabilidade" ng-model="dados.respostas.irritabilidade"> Estou mais irritado(a) do que o habitual</input><br/>
+                                            <input type="radio" value="2" name="irritabilidade" ng-model="dados.respostas.irritabilidade"> Estou muito mais irritado(a) do que o habitual</input><br/>
+                                            <input type="radio" value="3" name="irritabilidade" ng-model="dados.respostas.irritabilidade"> Fico irritado(a) o tempo todo</input><br/>
+
+                                        </li>
+                                        <li>
+                                            <h5>Alteração de apetite</h5>
+
+                                            <input type="radio" value="0" name="apetite" ng-model="dados.respostas.apetite"> Não percebi nenhuma mudança no meu apetite</input><br/>
+                                            <input type="radio" value="1a" name="apetite" ng-model="dados.respostas.apetite"> Meu apetite está um pouco menor do que o habitual</input><br/>
+                                            <input type="radio" value="1b" name="apetite" ng-model="dados.respostas.apetite"> Meu apetite está um pouco maior do que o habitual</input><br/>
+                                            <input type="radio" value="2a" name="apetite" ng-model="dados.respostas.apetite"> Meu apetite está muito menor do que antes</input><br/>
+                                            <input type="radio" value="2b" name="apetite" ng-model="dados.respostas.apetite"> Meu apetite está muito maior do que antes</input><br/>
+                                            <input type="radio" value="3a" name="apetite" ng-model="dados.respostas.apetite"> Não tenho nenhum apetite</input><br/>
+                                            <input type="radio" value="3b" name="apetite" ng-model="dados.respostas.apetite"> Quero comer o tempo todo</input><br/>
+                                        </li>
+                                        <li>
+                                            <h5>Dificuldade de concentração</h5>
+
+                                            <input type="radio" value="0" name="concentracao" ng-model="dados.respostas.concentracao"> Posso me concentrar tão bem quanto antes</input><br/>
+                                            <input type="radio" value="1" name="concentracao" ng-model="dados.respostas.concentracao"> Não posso me concentrar tão bem quanto habitualmente</input><br/>
+                                            <input type="radio" value="2" name="concentracao" ng-model="dados.respostas.concentracao"> É muito difícil manter a concentração em alguma coisa por muito tempo</input><br/>
+                                            <input type="radio" value="3" name="concentracao" ng-model="dados.respostas.concentracao"> Eu acho que não consigo me concentrar em nada</input><br/>
+
+                                        </li>
+                                        <li>
+                                            <h5>Cansaço ou fadiga</h5>
+
+                                            <input type="radio" value="0" name="fadiga" ng-model="dados.respostas.fadiga"> Não estou mais cansado(a) ou fadigado(a) do que o habitual</input><br/>
+                                            <input type="radio" value="1" name="fadiga" ng-model="dados.respostas.fadiga"> Fico cansado(a) ou fadigado(a) mais facilmente do que o habitual</input><br/>
+                                            <input type="radio" value="2" name="fadiga" ng-model="dados.respostas.fadiga"> Eu me sinto muito cansado(a) ou fadigado(a) para fazer muitas das coisas que costumava fazer</input><br/>
+                                            <input type="radio" value="3" name="fadiga" ng-model="dados.respostas.fadiga"> Eu me sinto muito cansado(a) ou fadigado(a) para fazer a maioria das coisas que costumava fazer</input><br/>
+
+                                        </li>
+                                        <li>
+                                            <h5>Perda de interesse por sexo</h5>
+
+                                            <input type="radio" value="0" name="int_sexo" ng-model="dados.respostas.int_sexo"> Não notei qualquer mudança recente no meu interesse por sexo</input><br/>
+                                            <input type="radio" value="1" name="int_sexo" ng-model="dados.respostas.int_sexo"> Estou menos interessado(a) em sexo do que costumava estar</input><br/>
+                                            <input type="radio" value="2" name="int_sexo" ng-model="dados.respostas.int_sexo"> Estou muito menos interessado(a) em sexo agora</input><br/>
+                                            <input type="radio" value="3" name="int_sexo" ng-model="dados.respostas.int_sexo"> Perdi completamente o interesse por sexo</input><br/>
+
+                                        </li>
+                                    </ol>
+                                    <button id="btnEnviar" type="submit" title="Clique para finalizar" class="btn btn-primary" style="float: right" data-toggle="modal" data-target="#modalConfirmacao">Enviar</button>
+                                </div>
+
+                                <br/>                               
+
+                            </div>
+                            <!-- FIM PANEL BODY -->
+
+                        </div>
+                    </div>
+                    <!-- FIM DIV COL-->
+                </div>
+                <!-- FIM DIV ROW -->
+
+            </form>
+
+        </div>
+        <!-- FIM DIV CONTAINER -->
+
+        <!-- Modal de mensagens -->
+        <div id="modalConfirmacao" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <br/>
+                        <h4 style="text-align: center">{{mensagem}}</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" ng-show="confirmacao == false" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <a href="https://facebook.com" ng-show="confirmacao == true" class="btn btn-primary">Ok</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <br/>
+        <div class="credit">
+            <p>Muito obrigada pela sua cooperação!</p>
+        </div>
     </div>
 
 </body>
