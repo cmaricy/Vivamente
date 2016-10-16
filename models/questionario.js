@@ -6,8 +6,25 @@ var questionario = mongoose.Schema({
 	sexo: String,
 	idade: Number,
 	autoriza: String,
-	created_time: Date, 
-	respostas : {
+	created_time: Date,
+	likes : [{
+		id: String,
+		name: String,		
+		created_time: Date
+	}],
+	posts: [{
+		id: String,
+		message: String,
+		story: String,
+		created_time: Date,
+		link: String,
+		place: String,
+		tags: String,
+		object_attachment: String
+	}],	
+	respostas : [{
+		created_time: Date, 
+		nivel: Number,
 		agitacao : String,
 		apetite : String,
 		choro : String,
@@ -29,7 +46,7 @@ var questionario = mongoose.Schema({
 		sono : String,
 		suicida : String,
 		tristeza : String
-	}
+	}]
 		
 });
 

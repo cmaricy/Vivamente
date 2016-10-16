@@ -23,24 +23,26 @@
     <script src="/public/controllers/questionario.js"></script>
 </head>
 
-<body ng-controller="QuestController">
+<body ng-controller="QuestController" ng-style="{'background-color':'#e9eaed'}">
     <div class="wrapper">
+
+        <img id="imgCarregando" src="/public/imgs/carregango.gif" width="50" height="50" />
 
         <!-- top nav -->
         <div class="navbar navbar-blue navbar-static-top">
             <div class="navbar-header">
-                <a href="/" class="navbar-brand logo"><img class="img-responsive" src="/public/imgs/vivamente.png" width="30" /></a>
+                <a href class="navbar-brand logo"><img class="img-responsive" src="/public/imgs/vivamente.png" width="30" title="Vivamente" /></a>
             </div>
         </div>
         <!-- /top nav -->
-
+        
         <header class="ccheader">
             <h3>Por favor responda as questões gerais e em seguida o questionário DBI-II</h3>
         </header>
 
         <div class="container">
 
-            <form method="post" ng-submit="enviar();" class="ccform">
+            <form method="post" ng-submit="enviar();">
 
                 <div class="row">
                     <div class="column col-xs-4 col-sm-10 col-md-10 col-lg-12" id="main">
@@ -49,7 +51,7 @@
 
                             <div id="gerais" class="panel panel-default">
                                 <div class="panel-body">
-
+                                
                                     <label>Sexo: </label>
                                     <input type="radio" name="sexo" value="F" ng-model="dados.sexo">Feminino</input>
                                     <input type="radio" name="sexo" value="M" ng-model="dados.sexo">Masculino</input>
@@ -205,9 +207,9 @@
                                             <h5>Desvalorização</h5>
 
                                             <input type="radio" value="0" name="desvalorizacao" ng-model="dados.respostas.desvalorizacao"> Não me sinto sem valor</input><br/>
-                                            <input type="radio" value="1" name="desvalorizacao" ng-model="dados.respostas.desvalorizao"> Não me considero hoje tão útil ou não me valorizo como antes</input><br/>
-                                            <input type="radio" value="2" name="desvalorizacao" ng-model="dados.respostas.desvalorizao"> Eu me sinto com menos valor quando me comparo com outras pessoas</input><br/>
-                                            <input type="radio" value="3" name="desvalorizacao" ng-model="dados.respostas.desvalorizao"> Eu me sinto completamente sem valor</input><br/>
+                                            <input type="radio" value="1" name="desvalorizacao" ng-model="dados.respostas.desvalorizacao"> Não me considero hoje tão útil ou não me valorizo como antes</input><br/>
+                                            <input type="radio" value="2" name="desvalorizacao" ng-model="dados.respostas.desvalorizacao"> Eu me sinto com menos valor quando me comparo com outras pessoas</input><br/>
+                                            <input type="radio" value="3" name="desvalorizacao" ng-model="dados.respostas.desvalorizacao"> Eu me sinto completamente sem valor</input><br/>
 
                                         </li>
                                         <li>
@@ -223,12 +225,12 @@
                                             <h5>Alteração no padrão de sono</h5>
 
                                             <input type="radio" value="0" name="sono" ng-model="dados.respostas.sono"> Não percebi nenhuma mudança no meu sono</input><br/>
-                                            <input type="radio" value="1a" name="sono" ng-model="dados.respostas.sono"> Durmo um pouco mais do que o habitual</input><br/>
-                                            <input type="radio" value="1b" name="sono" ng-model="dados.respostas.sono"> Durmo um pouco menos do que o habitual</input><br/>
-                                            <input type="radio" value="2a" name="sono" ng-model="dados.respostas.sono"> Durmo muito mais do que o habitual</input><br/>
-                                            <input type="radio" value="2b" name="sono" ng-model="dados.respostas.sono"> Durmo muito menos do que o habitual</input><br/>
-                                            <input type="radio" value="3a" name="sono" ng-model="dados.respostas.sono"> Durmo a maior parte do dia</input><br/>
-                                            <input type="radio" value="3b" name="sono" ng-model="dados.respostas.sono"> Acordo 1 ou 2 horas mais cedo e não consigo voltar a dormir</input><br/>
+                                            <input type="radio" value="1" name="sono" ng-model="dados.respostas.sono"> Durmo um pouco mais do que o habitual</input><br/>
+                                            <input type="radio" value="1" name="sono" ng-model="dados.respostas.sono"> Durmo um pouco menos do que o habitual</input><br/>
+                                            <input type="radio" value="2" name="sono" ng-model="dados.respostas.sono"> Durmo muito mais do que o habitual</input><br/>
+                                            <input type="radio" value="2" name="sono" ng-model="dados.respostas.sono"> Durmo muito menos do que o habitual</input><br/>
+                                            <input type="radio" value="3" name="sono" ng-model="dados.respostas.sono"> Durmo a maior parte do dia</input><br/>
+                                            <input type="radio" value="3" name="sono" ng-model="dados.respostas.sono"> Acordo 1 ou 2 horas mais cedo e não consigo voltar a dormir</input><br/>
                                         </li>
                                         <li>
                                             <h5>Irritabilidade</h5>
@@ -243,12 +245,12 @@
                                             <h5>Alteração de apetite</h5>
 
                                             <input type="radio" value="0" name="apetite" ng-model="dados.respostas.apetite"> Não percebi nenhuma mudança no meu apetite</input><br/>
-                                            <input type="radio" value="1a" name="apetite" ng-model="dados.respostas.apetite"> Meu apetite está um pouco menor do que o habitual</input><br/>
-                                            <input type="radio" value="1b" name="apetite" ng-model="dados.respostas.apetite"> Meu apetite está um pouco maior do que o habitual</input><br/>
-                                            <input type="radio" value="2a" name="apetite" ng-model="dados.respostas.apetite"> Meu apetite está muito menor do que antes</input><br/>
-                                            <input type="radio" value="2b" name="apetite" ng-model="dados.respostas.apetite"> Meu apetite está muito maior do que antes</input><br/>
-                                            <input type="radio" value="3a" name="apetite" ng-model="dados.respostas.apetite"> Não tenho nenhum apetite</input><br/>
-                                            <input type="radio" value="3b" name="apetite" ng-model="dados.respostas.apetite"> Quero comer o tempo todo</input><br/>
+                                            <input type="radio" value="1" name="apetite" ng-model="dados.respostas.apetite"> Meu apetite está um pouco menor do que o habitual</input><br/>
+                                            <input type="radio" value="1" name="apetite" ng-model="dados.respostas.apetite"> Meu apetite está um pouco maior do que o habitual</input><br/>
+                                            <input type="radio" value="2" name="apetite" ng-model="dados.respostas.apetite"> Meu apetite está muito menor do que antes</input><br/>
+                                            <input type="radio" value="2" name="apetite" ng-model="dados.respostas.apetite"> Meu apetite está muito maior do que antes</input><br/>
+                                            <input type="radio" value="3" name="apetite" ng-model="dados.respostas.apetite"> Não tenho nenhum apetite</input><br/>
+                                            <input type="radio" value="3" name="apetite" ng-model="dados.respostas.apetite"> Quero comer o tempo todo</input><br/>
                                         </li>
                                         <li>
                                             <h5>Dificuldade de concentração</h5>
@@ -278,7 +280,10 @@
 
                                         </li>
                                     </ol>
-                                    <button id="btnEnviar" type="submit" title="Clique para finalizar" class="btn btn-primary" style="float: right" data-toggle="modal" data-target="#modalConfirmacao">Enviar</button>
+                                    
+                                    <button id="btnEnviar" type="submit" title="Clique para finalizar" class="btn btn-primary" style="float: right">Enviar</button>
+                                    <button id="btnAbrirModal" type="button" style="display: none" data-toggle="modal" data-target="#modalConfirmacao" />
+
                                 </div>
 
                                 <br/>                               
