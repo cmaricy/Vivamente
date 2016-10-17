@@ -20,7 +20,7 @@
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <script src="/bower_components/angular/angular.min.js"></script>
-    <script src="/public/controllers/questionario.js"></script>
+    <script src="/public/controllers/questionario.js"></script>    
 </head>
 
 <body ng-controller="QuestController" ng-style="{'background-color':'#e9eaed'}">
@@ -314,7 +314,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" ng-show="confirmacao == false" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <a href="https://www.facebook.com" ng-show="confirmacao == true" class="btn btn-primary">Ok</a>
+                        <a id="btnFinalizar" ng-show="confirmacao == true" class="btn btn-primary">Ok</a>
                     </div>
                 </div>
 
@@ -328,5 +328,13 @@
     </div>
 
 </body>
+
+<script type="text/javascript">
+        $(document).ready(function(){
+            $("#btnFinalizar").on("click", function(){
+                top.location.href='http://www.facebook.com/';
+            });
+        });        
+    </script>
 
 </html>
