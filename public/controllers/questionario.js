@@ -1,15 +1,31 @@
+/*
+* Este script representa o controller do Angular da 
+* view questionario.ejs.
+*/ 
+
+// Criando um modulo que será chamado vivamente
 var app = angular.module("vivavamente",[]);
 
+// Adicionando um controlador ao modulo e passando como argumento
+// o escopo e o http do angular.js
 app.controller("QuestController",function($scope, $http){
 
+	// Setando as variaveis de escopo 
 	$scope.dados = {};
 	$scope.dados.respostas = {};
 	$scope.mensagem = '';
 	$scope.confirmacao = false;
 
+	// A função enviar envia os dados do questionário para o Node.js
 	$scope.enviar = function(){
+
+		// Invoca a função que valida os dados de entrada
 		if ( validarEntrada() ){
+			
+			// Se verdadeiro, exibe o gif carregando na tela
 			$("#imgCarregando").css("display", "inline");
+
+			// Faz a chamada http a rota do express
 			$http({
 				method: "POST",
 				url: "/questionario/salvar",
@@ -18,24 +34,39 @@ app.controller("QuestController",function($scope, $http){
 			    },
 				data: $scope.dados
 			}).success(function(data){
+
+				// Em caso de sucesso seta a mensagem retornada pelo controller do node.js
 				$scope.mensagem = data;
+
+				// Em caso de processamento bem sucedido
 				if (data == "Salvo com sucesso"){
 					$scope.confirmacao = true;
 					$scope.dados = {};
 					$scope.dados.respostas = {};
 				}
+
+				// Esconde o gif carregando
 				$("#imgCarregando").css("display", "none");
+
+				// Clica no botão que exibe o modal com a mensagem para o usuário
 				$("#btnAbrirModal").click();
 			}).error(function(err){
+
+				// Em caso de erro seta a mensagem, esconde o gid de carregando e abre o modal 
+				// com a mensagem ao usuário
 				$scope.mensagem = "Erro: " + err;
 				$("#imgCarregando").css("display", "none");
 				$("#btnAbrirModal").click();
 			});
 		} else{
+			// Existe o modal com a mensagem ao usuário informando qual campo não foi
+			// preenchido
 			$("#btnAbrirModal").click();
 		}
 	}
 
+	// Esta função verifica se todos os campos de entrada são válidos
+	// e retorna true ou falso para quem chamou.
 	function validarEntrada(){
 		if ( !$scope.dados.sexo )
 				$scope.mensagem = "Sexo não preenchido";
