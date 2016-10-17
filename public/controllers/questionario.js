@@ -39,7 +39,7 @@ app.controller("QuestController",function($scope, $http){
 				$scope.mensagem = data;
 
 				// Em caso de processamento bem sucedido
-				if (data == "Salvo com sucesso"){
+				if (data == "Respostas enviadas com sucesso"){
 					$scope.confirmacao = true;
 					$scope.dados = {};
 					$scope.dados.respostas = {};

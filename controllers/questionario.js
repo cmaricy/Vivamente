@@ -225,7 +225,7 @@ module.exports = function(app) {
                             // o que já existe, senão ele salva um novo documento.
                             quest.save(function(err, data) {
                                 if (err) res.status(500).send("Erro ao salvar o questionário");
-                                res.status(200).send("Salvo com sucesso");
+                                res.status(200).send("Respostas enviadas com sucesso");
                             });
 
                         }); // Fim do FB.api dos posts
