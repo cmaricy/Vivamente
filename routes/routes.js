@@ -2,7 +2,7 @@ module.exports = function(app) {
 		 
 	var questionario = app.controllers.questionario;
  
-	app.get('/', questionario.index);
+	app.post('/', questionario.index);
 	app.get('/questionario',  autenticar, questionario.indexQuestionario);
 	app.post('/questionario/salvar', autenticar, questionario.salvar);
 
