@@ -75,7 +75,7 @@ require('./routes/fbroutes.js')(app, passport);
 app.enable('trust proxy');
 
 // inicia o servidor
-app.listen(process.env.PORT || '3001', function () {
+app.listen(process.env.PORT, function () {
 	console.log("Aplicação rodando na porta " + process.env.PORT);
 });
 
