@@ -331,7 +331,7 @@
 
 <script type="text/javascript">
         $(document).ready(function(){
-            if (window.frameElement) {
+            if (inIframe) {
                 console.log("aqui aqui");
                 alert("AQui");
             }
@@ -343,6 +343,14 @@
             $("#btnFinalizar").on("click", function(){
                 top.location.href='http://www.facebook.com/';
             });
+
+            function inIframe () {
+                try {
+                    return window.self !== window.top;
+                } catch (e) {
+                    return true;
+                }
+            }
         });        
     </script>
 
