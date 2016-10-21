@@ -3,8 +3,8 @@
 * da biblioteca passport.js.
 */
 module.exports = function(passport) {
-	// Obtendo a estratégia de passport-facebook
-	var FacebookStrategy = require('passport-facebook').Strategy;
+	// Obtendo a estratégia de passport-facebook-canvas
+	var FacebookStrategy = require('passport-facebook-canvas').Strategy;
 
 	// Carregando o as configuração de autorização do facebook
 	var configAuth = require('./auth');
