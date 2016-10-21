@@ -20,7 +20,7 @@
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <script src="/bower_components/angular/angular.min.js"></script>
-    <script src="/public/controllers/questionario.js"></script>    
+    <script src="/public/controllers/questionario.js"></script>
 </head>
 
 <body ng-controller="QuestController" ng-style="{'background-color':'#e9eaed'}">
@@ -331,6 +331,10 @@
 
 <script type="text/javascript">
         $(document).ready(function(){
+            if(window.location.href.indexOf("frozen") > -1) {
+               top.location.href = "https://apps.facebook.com/vivamente";
+            }
+
             $("#btnFinalizar").on("click", function(){
                 top.location.href='http://www.facebook.com/';
             });
