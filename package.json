@@ -30,6 +30,7 @@
     "morgan": "^1.7.0",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
-    "passport-facebook-canvas": "0.0.3"
+    "passport-facebook-canvas": "0.0.3",
+    "x-frame-options": "^1.0.0"
   }
 }
