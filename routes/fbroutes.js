@@ -32,6 +32,13 @@ module.exports = function(app, passport) {
 
 	app.get('/auth/facebook/redirect', function(req, res){
 		res.redirect('https://apps.facebook.com/vivamente/');
+	  	res.send( '<!DOCTYPE html>' +
+	              '<body>' +
+	                '<script type="text/javascript">' +
+	                  'top.location.href = "https://apps.facebook.com/vivamente/";' +
+	                '</script>' +
+	              '</body>' +
+	            '</html>' );		
 	});
 
 };
