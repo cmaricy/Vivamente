@@ -12,10 +12,7 @@ var express = require('express')
   , compression = require('compression') // comprimi transicoes http
   , methodOverride = require('method-override') // permiti usar PUT e DELETE 
   , cookie = cookieParser(cfg.SECRET) // gera um cookie para a aplicacao baseada em um segredo
-  , xFrameOptions = require('x-frame-options')
   , app = express(); // cria a aplicacao
-
-app.use(xFrameOptions());
 
 // carrega o passport.js
 require('./config/passport')(passport); 
