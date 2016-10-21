@@ -36,13 +36,8 @@ module.exports = function(app) {
 
         // Função que envia a página do questionário
         indexQuestionario: function(req, res) {
-            res.send( '<!DOCTYPE html>' +
-                              '<body>' +
-                                '<script type="text/javascript">' +
-                                  'top.location.href = "/questionario";' +
-                                '</script>' +
-                              '</body>' +
-                            '</html>' );
+            // Renderiza a página questionário
+            res.redirect('/questionario');
         },
 
         /* Função responsável por salvar o questionário, os posts e os likes do usuário.
