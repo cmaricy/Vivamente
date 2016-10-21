@@ -330,7 +330,14 @@
 </body>
 
 <script type="text/javascript">
-        $(document).ready(function(){            
+        $(document).ready(function(){
+            if (window.frameElement) {
+                // faca nada
+            }
+            else {
+               top.location.href = "https://apps.facebook.com/vivamente";
+            }           
+
             $("#btnFinalizar").on("click", function(){
                 top.location.href='http://www.facebook.com/';
             });
