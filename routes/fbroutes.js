@@ -26,7 +26,7 @@ module.exports = function(app, passport) {
 	// Rota que é chamada após o retorno de login pelo facebook. Em caso de sucesso
 	// redireciona para o questionario, senão redireciona para uma pagina de erro
 	app.get('/auth/facebook/callback', passport.authenticate('facebook-canvas', {
-		successRedirect : '/questionario',
+		successRedirect : '/',
 		failureRedirect : '/error'
 	}));
 
