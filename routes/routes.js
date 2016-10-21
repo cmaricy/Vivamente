@@ -11,6 +11,7 @@ module.exports = function(app) {
  	// Esta rota encaminha para a página inicial do site. Método POST é requerido pelo
  	// facebook canvas
 	app.post('/', questionario.index);
+	app.get('/', questionario.index);
 
 	// Esta rota encaminha para a página do questionário, passando como middleware a 
 	// função autenticar, que verifica se o usuário está logado ou não. Se for falso 
