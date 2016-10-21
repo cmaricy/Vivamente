@@ -15,7 +15,7 @@ module.exports = function(app) {
 	// Esta rota encaminha para a página do questionário, passando como middleware a 
 	// função autenticar, que verifica se o usuário está logado ou não. Se for falso 
 	// encaminha para a página inicial
-	app.get('/questionario',  autenticar, questionario.indexQuestionario);
+	app.post('/questionario', questionario.indexQuestionario);
 
 	// Esta rota é invocada ao salvar o questionário
 	app.post('/questionario/salvar', autenticar, questionario.salvar);
