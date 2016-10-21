@@ -54,7 +54,8 @@ app.controller("QuestController",function($scope, $http){
 
 				// Em caso de erro seta a mensagem, esconde o gid de carregando e abre o modal 
 				// com a mensagem ao usuário
-				$scope.mensagem = "Erro: " + err;
+				$scope.mensagem = "Erro ao salvar: ";
+				console.log(err);
 				$("#imgCarregando").css("display", "none");
 				$("#btnAbrirModal").click();
 			});
