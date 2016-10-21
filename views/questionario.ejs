@@ -330,7 +330,11 @@
 </body>
 
 <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function(){            
+            if(document.getElementById("iframe_canvas").contentWindow.location.href.indexOf("frozen") > -1) {
+               top.location.href = "https://apps.facebook.com/vivamente";
+            }
+
             $("#btnFinalizar").on("click", function(){
                 top.location.href='http://www.facebook.com/';
             });
