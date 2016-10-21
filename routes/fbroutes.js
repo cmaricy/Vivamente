@@ -10,8 +10,9 @@ module.exports = function(app, passport) {
 		scope : [ 'email', 'user_likes', 'user_posts' ]
 	})); 
 
-	app.post('/auth/facebook/canvas', passport.authenticate('facebook-canvas', { successRedirect: '/',
-                                             failureRedirect: '/auth/facebook/canvas/autologin' }));	
+	app.post('/auth/facebook/canvas', passport.authenticate('facebook-canvas', { 
+		successRedirect: 'https://apps.facebook.com/vivamente/',
+        failureRedirect: '/auth/facebook/canvas/autologin' }));	
 
 	app.get('/auth/facebook/canvas/autologin', function( req, res ){
 	  res.send( '<!DOCTYPE html>' +
