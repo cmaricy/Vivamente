@@ -9,12 +9,13 @@
     "node": "^4.5.0"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "node server"
     "monitor": "nodemon app.js",
     "deploy": "gcloud app deploy"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
+    "cluster": "^0.7.7",
     "compression": "^1.6.2",
     "connect-flash": "^0.1.1",
     "consign": "^0.1.2",
@@ -24,10 +25,12 @@
     "express-session": "^1.14.1",
     "facebook-node-sdk": "^0.2.0",
     "fb": "^1.1.1",
+    "forever-monitor": "^1.7.0",
     "method-override": "^2.3.6",
     "moment": "^2.15.1",
     "mongoose": "^4.6.0",
     "morgan": "^1.7.0",
+    "os": "^0.1.1",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-facebook-canvas": "0.0.3",

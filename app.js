@@ -12,15 +12,20 @@ var express = require('express')
   , compression = require('compression') // comprimi transicoes http
   , methodOverride = require('method-override') // permiti usar PUT e DELETE 
   , cookie = cookieParser(cfg.SECRET) // gera um cookie para a aplicacao baseada em um segredo
-  , app = express(); // cria a aplicacao
+  , app = express() // cria a aplicacao
+  , server = require('http').Server(app);
 
 // carrega o passport.js
 require('./config/passport')(passport); 
 
 // conexao com MongoDB
-mongoose.connect(configDB.url);
-mongoose.Promise = global.Promise;
+var single_connection;
+if ( !single_connection ){
+  single_connection = mongoose.connect(configDB.url);
+}
 
+mongoose.Promise = global.Promise;
+  
 // injeta os controllers em app
 consign()
   .include('controllers')
@@ -75,8 +80,8 @@ require('./routes/fbroutes.js')(app, passport);
 app.enable('trust proxy');
 
 // inicia o servidor
-app.listen(process.env.PORT, function () {
-	console.log("Aplicação rodando na porta " + process.env.PORT);
+server.listen(process.env.PORT, function(){
+  console.log("Vivamente no ar.");
 });
 
 // exporta app no contexto da aplicação
