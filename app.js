@@ -22,7 +22,6 @@ require('./config/passport')(passport);
 // conexao com MongoDB
 mongoose.connect(configDB.url);
 
-
 mongoose.Promise = global.Promise;
   
 // injeta os controllers em app
