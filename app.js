@@ -19,10 +19,8 @@ var express = require('express')
 require('./config/passport')(passport); 
 
 // conexao com MongoDB
-var single_connection;
-if ( !single_connection ){
-  single_connection = mongoose.connect(configDB.url);
-}
+mongoose.connect(configDB.url);
+
 
 mongoose.Promise = global.Promise;
   
