@@ -46,6 +46,8 @@ app.use(cookie);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(session({
+    secret: cf.SECRET, 
+    name: "vivamente_cookie",
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
     resave: true,
     saveUninitialized: true
