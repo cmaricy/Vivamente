@@ -13,6 +13,7 @@ var express = require('express')
   , methodOverride = require('method-override') // permiti usar PUT e DELETE 
   , cookie = cookieParser(cfg.SECRET) // gera um cookie para a aplicacao baseada em um segredo
   , app = express() // cria a aplicacao
+  , MongoStore = require('connect-mongo')(session)
   , server = require('http').Server(app);
 
 // carrega o passport.js
@@ -45,9 +46,7 @@ app.use(cookie);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(session({
-	secret: 'anystringoftext', 
-	saveUninitialized: true, 
-	resave: true
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
 // Comprimir transacoes de requisicoes 
