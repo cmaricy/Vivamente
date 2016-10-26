@@ -132,7 +132,7 @@ module.exports = function(app) {
                         // irá printar o erro no console e retorna erro ao usuário
                         if (!token || token.error) {
                             console.log(!res ? 'error occurred' : token.error);
-                            return;
+                            res.status(500).send("Erro ao consultar no acesso ao token");
                         }
 
                         // Armazena o valor do token de acesso
@@ -152,7 +152,7 @@ module.exports = function(app) {
                             // ao usuário
                             if ( !response || response.error ) {
                                 console.log(!response ? 'error occurred' : response.error);
-                                return;
+                                res.status(500).send("Erro no acesso ao consultar likes");
                             }
 
                             /* Se o usuário já tiver likes cadastrados, este bloco
@@ -195,7 +195,7 @@ module.exports = function(app) {
                         }, function(response) {
                             if (!response || response.error) {
                                 console.log(!response ? 'error occurred' : response.error);
-                                return;
+                                res.status(500).send("Erro ao consultar posts");
                             }
 
                             if (quest.posts.length > 0) {

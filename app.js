@@ -20,7 +20,9 @@ var express = require('express')
 require('./config/passport')(passport); 
 
 // conexao com MongoDB
-mongoose.connect(configDB.url);
+var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
+                replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } }; 
+mongoose.connect(configDB.url, options);
 
 mongoose.Promise = global.Promise;
   
@@ -80,7 +82,7 @@ require('./routes/fbroutes.js')(app, passport);
 app.enable('trust proxy');
 
 // inicia o servidor
-server.listen(process.env.PORT, function(){
+server.listen(process.env.PORT || 3000, function(){
   console.log("Vivamente no ar.");
 });
 
