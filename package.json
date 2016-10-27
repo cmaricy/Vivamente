@@ -9,7 +9,7 @@
     "node": "^4.5.0"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "node main.js",
     "monitor": "nodemon app.js",
     "deploy": "gcloud app deploy"
   },
@@ -35,6 +35,6 @@
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-facebook-canvas": "0.0.3",
-    "x-frame-options": "^1.0.0"
+    "pm2": "^2.0.19"
   }
 }
