@@ -52,16 +52,21 @@ module.exports = function(passport) {
 					var newUser = new UserDB();
 					newUser.facebook.id = profile.id;
 					newUser.facebook.token = accessToken;
-					if ( profile.emails ){
-					   if ( profile.emails.length > 0) 
-							newUser.facebook.email = profile.emails[0].value;
-					   else
-					   		newUser.facebook.email = profile.emails.value;
-					} else{
-						if ( profile.email )
-							newUser.facebook.email = profile.email.value;
-						else
-							newUser.facebook.email = profile.name.givenName + "@facebook.com";
+					try {
+						if ( profile.emails ){
+						   if ( profile.emails.length > 0) 
+								newUser.facebook.email = profile.emails[0].value;
+						   else
+						   		newUser.facebook.email = profile.emails.value;
+						} else{
+							if ( profile.email )
+								newUser.facebook.email = profile.email.value;
+							else
+								newUser.facebook.email = profile.name.givenName + "@facebook.com";
+						}
+					} catch (e){
+						if (e)
+						newUser.facebook.email = profile.name.givenName + "@facebook.com";
 					}
 
 					newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
