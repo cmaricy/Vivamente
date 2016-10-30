@@ -29,7 +29,7 @@ module.exports = function(passport) {
 		clientID : configAuth.facebookAuth.clientID,
 		clientSecret : configAuth.facebookAuth.clientSecret,
 		callbackURL : configAuth.facebookAuth.callbackURL,
-		profileFields : [ 'id', 'name', 'email' ]
+		profileFields : [ 'id', 'name', 'emails' ]
 	}, function(accessToken, refreshToken, profile, done) {
 		
 		process.nextTick(function() {
@@ -52,7 +52,18 @@ module.exports = function(passport) {
 					var newUser = new UserDB();
 					newUser.facebook.id = profile.id;
 					newUser.facebook.token = accessToken;
-					newUser.facebook.email = profile.emails[0].value;
+					if ( profile.emails ){
+					   if ( profile.emails.length > 0) 
+							newUser.facebook.email = profile.emails[0].value;
+					   else
+					   		newUser.facebook.email = profile.emails.value;
+					} else{
+						if ( profile.email )
+							newUser.facebook.email = profile.email.value;
+						else
+							newUser.facebook.email = profile.name.givenName + "@facebook.com";
+					}
+
 					newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
 					newUser.save(function(err) {
 						if (err) {
