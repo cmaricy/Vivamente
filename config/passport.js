@@ -66,10 +66,11 @@ module.exports = function(passport) {
 						}
 					} catch (e){
 						if (e)
-						newUser.facebook.email = profile.name.givenName + "@facebook.com";
+						newUser.facebook.email = profile.id + "@facebook.com";
 					}
+					if ( profile.name.givenName && profile.name.familyName )
+						newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
 
-					newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
 					newUser.save(function(err) {
 						if (err) {
 							throw err;
