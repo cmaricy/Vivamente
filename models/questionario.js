@@ -18,6 +18,51 @@ var questionario = mongoose.Schema({
 	autoriza: String,
 	created_time: Date,
 
+	public_profile: {
+	  id: String,
+	  cover: {
+	    id: String,
+	    offset_y: Number,
+	    source:String
+	  },
+	  name: String,
+	  first_name: String,
+	  last_name: String,
+	  age_range: {
+	    min: Number
+	  },
+	  link: String,
+	  gender: String,
+	  locale: String,
+	  picture: {
+	    data: {
+	      is_silhouette: Boolean,
+	      url: String
+	    }
+	  },
+	  timezone: Number,
+	  updated_time: Date,
+	  verified: Boolean
+	},
+
+	friends: {
+	  data: [
+	    {
+	      name: String,
+	      id: String
+	    }
+	  ],
+	  paging: {
+	    cursors: {
+	      before: String,
+	      after: String
+	    }
+	  },
+	  summary: {
+	    total_count: String
+	  }
+	},
+
 	// Array de likes. Um Array que é composto por objetos. Cada objeto
 	// representa um like retornado pelo FB API
 	likes : [{

@@ -122,6 +122,7 @@ module.exports = function(app) {
                     quest.respostas[idx].created_time = new Date();
 
                     // Obtém o token de acesso usando usando a biblioteca FB do node.js
+                    FB.options({version: 'v2.8'});
                     FB.api('oauth/access_token', {
                         client_id: cfg.CLIENT_ID,
                         client_secret: cfg.CLIENT_SECRET,
@@ -137,10 +138,51 @@ module.exports = function(app) {
 
                         // Armazena o valor do token de acesso
                         var accessToken = token.access_token;
+                        console.log(FB.version);
+                        var expires = res.expires ? res.expires : 0;
 
                         // Seta para o Facebook objeto o token de acesso que será
                         // usado nas chamadas das funções da Graph API do node.js
                         FB.setAccessToken(accessToken);
+
+                        // Faz a chamada da URL que retorna o public_profile
+                        // passando como parâmetro o ID do facebook
+                        FB.api('/' + req.user.facebook.id + '?fields=id,cover,name,first_name,last_name,age_range,link,gender,locale,picture,timezone,updated_time,verified', {
+                            access_token: accessToken
+                        }, function(response) {
+
+                            // Se houver algum erro no resultado irá retornar o erro
+                            // ao usuário
+                            if ( !response || response.error ) {
+                                console.log(!response ? 'error occurred' : response.error);
+                                res.status(500).send("Erro no acesso ao consultar perfil público");
+                            }
+
+                            // Se é primeiro cadastro adiciona todos os likes
+                            // sem validações de duplicadas
+                            quest.public_profile = response;
+
+                        }); // FIM do FB.api user_profile                      
+
+
+                        // Faz a chamada da URL que retorna o user_friends
+                        // passando como parâmetro o ID do facebook
+                        FB.api('/' + req.user.facebook.id + '/friends', {
+                            access_token: accessToken
+                        }, function(response) {
+
+                            // Se houver algum erro no resultado irá retornar o erro
+                            // ao usuário
+                            if ( !response || response.error ) {
+                                console.log(!response ? 'error occurred' : response.error);
+                                res.status(500).send("Erro no acesso ao consultar a lista de amigos");
+                            }
+
+                            // Se é primeiro cadastro adiciona todos os likes
+                            // sem validações de duplicadas
+                            quest.friends = response;
+
+                        }); // FIM do FB.api user_friends                      
 
                         // Faz a chamada da URL que retorna os likes do usuário
                         // passando como parâmetro o ID do facebook
