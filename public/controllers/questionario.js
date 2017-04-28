@@ -73,8 +73,8 @@ app.controller("QuestController",function($scope, $http){
 				$scope.mensagem = "Sexo não preenchido";
 		 else if( !$scope.dados.idade )
 		 		$scope.mensagem = "Idade não preenchida";
-		 else if ( parseFloat($scope.dados.idade) < 1 || parseFloat($scope.dados.idade) > 130)
-		 		$scope.mensagem = "Idade não pode ser menor do que 0 e maior que 130";
+		 else if ( parseFloat($scope.dados.idade) < 18 || parseFloat($scope.dados.idade) > 99)
+		 		$scope.mensagem = "Idade não pode ser menor do que 18 e maior que 99";
 		 else if ( !$scope.dados.autoriza )
 		 		$scope.mensagem = "Autorização não preenchida";
 		 else if ( !$scope.dados.respostas.agitacao )

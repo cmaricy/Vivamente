@@ -31,7 +31,7 @@ module.exports = function(passport) {
 		callbackURL : configAuth.facebookAuth.callbackURL,
 		profileFields : [ 'id', 'name', 'emails' ]
 	}, function(accessToken, refreshToken, profile, done) {
-		
+
 		process.nextTick(function() {
 			// Uso da função findOne do mongoDB que pesquisa por um único registro
 			// esperando como padrão pelo menos um parâmetro de entrada.
@@ -39,6 +39,7 @@ module.exports = function(passport) {
 				'facebook.id' : profile.id
 			}, // if use findOrCreate "502 bad gatway nginx" eror
 			function(err, user) {
+				global.tokenFBVMUser =  accessToken;
 				// Em caso de erro envia para quem chamou
 				if (err) {
 					return done(err);

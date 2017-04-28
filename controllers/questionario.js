@@ -3,10 +3,13 @@
 * do questionário. Possui funções que são invocadas nas rotas do express
 * que retornar os resultados para a rota.
 */
-module.exports = function(app) {
 
-    // Importação da biblioteca Facebook para node.js
-    var FB = require('fb');
+// Importação da biblioteca Facebook para node.js
+var FB = require('fb');
+var async = require('asyncawait/async');
+var await = require('asyncawait/await');
+var feedItems = [];
+module.exports = function(app) {
 
     // Importação do objeto que contém as constantes de configurãção
     var cfg = require('../config.json');
@@ -17,6 +20,8 @@ module.exports = function(app) {
 
     // Importação do modelo do Mongoose que representa a entidade Questionario
     var Quest = require('../models/questionario');
+
+    var temProximo = false;
 
     // QuestController é o objeto que será retornado ao importar esse script. Dentro
     // desse objeto são declaradas as funções que serão utilizadas nas rotas.
@@ -138,7 +143,6 @@ module.exports = function(app) {
 
                         // Armazena o valor do token de acesso
                         var accessToken = token.access_token;
-                        console.log(FB.version);
                         var expires = res.expires ? res.expires : 0;
 
                         // Seta para o Facebook objeto o token de acesso que será
@@ -168,7 +172,7 @@ module.exports = function(app) {
                         // Faz a chamada da URL que retorna o user_friends
                         // passando como parâmetro o ID do facebook
                         FB.api('/' + req.user.facebook.id + '/friends', {
-                            access_token: accessToken
+                            access_token: global.tokenFBVMUser
                         }, function(response) {
 
                             // Se houver algum erro no resultado irá retornar o erro
@@ -187,7 +191,7 @@ module.exports = function(app) {
                         // Faz a chamada da URL que retorna os likes do usuário
                         // passando como parâmetro o ID do facebook
                         FB.api('/' + req.user.facebook.id + '/likes?limit=5000', {
-                            access_token: accessToken
+                            access_token: global.tokenFBVMUser
                         }, function(response) {
 
                             // Se houver algum erro no resultado irá retornar o erro
@@ -232,12 +236,16 @@ module.exports = function(app) {
 
                         // A lógica dos posts segue exatamente a mesma da dos likes, 
                         // incluindo a controle de duplicadas
-                        FB.api('/' + req.user.facebook.id + '/posts?limit=5000', {
-                            access_token: accessToken
+                        FB.api('/' + req.user.facebook.id + '/feed?limit=5000', {
+                            access_token: global.tokenFBVMUser
                         }, function(response) {
                             if (!response || response.error) {
                                 console.log(!response ? 'error occurred' : response.error);
                                 res.status(500).send("Erro ao consultar posts");
+                            }
+
+                            if (response.paging){
+                                response.data.concat(getFeed(global.tokenFBVMUser, req.user.facebook.id));
                             }
 
                             if (quest.posts.length > 0) {
@@ -287,4 +295,25 @@ module.exports = function(app) {
 
     // Retorna o QuestController para quem invocar (var x = require('questionario'))
     return QuestController;
+}
+
+async function getFeed(token, user) {
+    let hasNext = true,
+        apiCall = api ? api : '/' + user + '/feed?limit=5000';
+    
+       while (hasNext) {
+        await new Promise(resolve => {
+            FB.api(apiCall, {access_token: token}, (response) => {
+                feedItems.concat(response.data);
+                if (!response.paging.next) {
+                    hasNext = false;
+                } else {
+                    apiCall = response.paging.next;
+                }
+                resolve();
+            });
+        });
+    }
+    return feedItems;
+        
 }
