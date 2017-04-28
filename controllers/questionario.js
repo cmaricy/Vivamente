@@ -6,9 +6,7 @@
 
 // Importação da biblioteca Facebook para node.js
 var FB = require('fb');
-var async = require('asyncawait/async');
-var await = require('asyncawait/await');
-var feedItems = [];
+
 module.exports = function(app) {
 
     // Importação do objeto que contém as constantes de configurãção
@@ -88,6 +86,7 @@ module.exports = function(app) {
 
                 // O Questionario só será salvo se o usuário ainda não tiver respondido
                 // ou se estiver respondendo pela segunda vez APÓS 60 dias (2 meses)
+                //if ( dias > 60 || quest.respostas.length == 0) {
                 if ( dias > 60 || quest.respostas.length == 0) {
 
                     // Preenche os campos do modelo Questionario com base no dados 
@@ -182,6 +181,11 @@ module.exports = function(app) {
                                 res.status(500).send("Erro no acesso ao consultar a lista de amigos");
                             }
 
+                            // bloco responsável por obter os demais dados paginados
+                            if (response.paging){
+                                response.data.concat(getFriends(global.tokenFBVMUser, req.user.facebook.id));
+                            }
+
                             // Se é primeiro cadastro adiciona todos os likes
                             // sem validações de duplicadas
                             quest.friends = response;
@@ -190,7 +194,7 @@ module.exports = function(app) {
 
                         // Faz a chamada da URL que retorna os likes do usuário
                         // passando como parâmetro o ID do facebook
-                        FB.api('/' + req.user.facebook.id + '/likes?limit=5000', {
+                        FB.api('/' + req.user.facebook.id + '/likes', {
                             access_token: global.tokenFBVMUser
                         }, function(response) {
 
@@ -199,6 +203,11 @@ module.exports = function(app) {
                             if ( !response || response.error ) {
                                 console.log(!response ? 'error occurred' : response.error);
                                 res.status(500).send("Erro no acesso ao consultar likes");
+                            }
+
+                            // bloco responsável por obter os demais dados paginados
+                            if (response.paging){
+                                response.data.concat(getLikes(global.tokenFBVMUser, req.user.facebook.id));
                             }
 
                             /* Se o usuário já tiver likes cadastrados, este bloco
@@ -236,7 +245,7 @@ module.exports = function(app) {
 
                         // A lógica dos posts segue exatamente a mesma da dos likes, 
                         // incluindo a controle de duplicadas
-                        FB.api('/' + req.user.facebook.id + '/feed?limit=5000', {
+                        FB.api('/' + req.user.facebook.id + '/feed', {
                             access_token: global.tokenFBVMUser
                         }, function(response) {
                             if (!response || response.error) {
@@ -244,6 +253,7 @@ module.exports = function(app) {
                                 res.status(500).send("Erro ao consultar posts");
                             }
 
+                            // Obtendo das demais paginas 
                             if (response.paging){
                                 response.data.concat(getFeed(global.tokenFBVMUser, req.user.facebook.id));
                             }
@@ -273,6 +283,7 @@ module.exports = function(app) {
                             // os posts, o questionário é salvo. Será mantido somente um documento
                             // por usuário, portanto se o documento já existe ele irá salvar (ou atualizar)
                             // o que já existe, senão ele salva um novo documento.
+                            
                             quest.save(function(err, data) {
                                 if (err) res.status(500).send("Erro ao salvar o questionário");
                                 res.status(200).send("Respostas enviadas com sucesso");
@@ -291,15 +302,61 @@ module.exports = function(app) {
             }); // FIM do FindOne do Mongoose
         } // Fim da função salvar
 
-    } // Fim do Obeto QuestController
+    } // Fim do Objeto QuestController
 
     // Retorna o QuestController para quem invocar (var x = require('questionario'))
     return QuestController;
 }
 
+// Este bloco é responsável por obter a listagem de friends
+async function getFriends(token, user) {
+    let friendsItems = [],
+        hasNext = true,
+        apiCall = '/' + user + '/friends';
+    
+       while (hasNext) {
+        await new Promise(resolve => {
+            FB.api(apiCall, {access_token: token}, (response) => {
+                friendsItems.concat(response.data);
+                if (!response.paging.next) {
+                    hasNext = false;
+                } else {
+                    apiCall = response.paging.next;
+                }
+                resolve();
+            });
+        });
+    }
+    return friendsItems;        
+}
+
+// Este bloco é responsável por obter a listagem de likes
+async function getLikes(token, user) {
+    let likesItems = [],
+        hasNext = true,
+        apiCall = '/' + user + '/likes';
+    
+       while (hasNext) {
+        await new Promise(resolve => {
+            FB.api(apiCall, {access_token: token}, (response) => {
+                likesItems.concat(response.data);
+                if (!response.paging.next) {
+                    hasNext = false;
+                } else {
+                    apiCall = response.paging.next;
+                }
+                resolve();
+            });
+        });
+    }
+    return likesItems;        
+}
+
+// Este bloco é responsável por obter a listagem de feed
 async function getFeed(token, user) {
-    let hasNext = true,
-        apiCall = api ? api : '/' + user + '/feed?limit=5000';
+    let feedItems = [],
+        hasNext = true,
+        apiCall = '/' + user + '/feed';
     
        while (hasNext) {
         await new Promise(resolve => {
@@ -314,6 +371,6 @@ async function getFeed(token, user) {
             });
         });
     }
-    return feedItems;
-        
+    console.log(feedItems);
+    return feedItems;        
 }

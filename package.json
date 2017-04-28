@@ -6,7 +6,7 @@
   "license": "Apache Version 2.0",
   "author": "Google Inc.",
   "engines": {
-    "node": "^7.4.0"
+    "node": "^7.9.0"
   },
   "scripts": {
     "start": "node main.js",
