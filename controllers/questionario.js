@@ -255,11 +255,14 @@ module.exports = function(app) {
 
                             // Obtendo das demais paginas 
                             if (response.paging){
-                                response.data.concat(getFeed(global.tokenFBVMUser, req.user.facebook.id));
+                                //response.data.concat();
+                                getFeed(global.tokenFBVMUser, req.user.facebook.id, response.paging).then((response_) =>{
+                                    console.log(response);
+                                    response.data.push(response_);
+                                })
                             }
 
                             if (quest.posts.length > 0) {
-
                                 response.data.forEach(function(item) {
                                     var aux = false;
                                     quest.posts.forEach(function(itFeed) {
@@ -318,10 +321,13 @@ async function getFriends(token, user) {
         await new Promise(resolve => {
             FB.api(apiCall, {access_token: token}, (response) => {
                 friendsItems.concat(response.data);
-                if (!response.paging.next) {
+                if (!response.paging) {
                     hasNext = false;
                 } else {
-                    apiCall = response.paging.next;
+                    if (response.paging.next)
+                        apiCall += '?__paging_token=' + response.paging.next.split("_paging_token=")[1];
+                    else
+                        hasNext = false;
                 }
                 resolve();
             });
@@ -340,10 +346,13 @@ async function getLikes(token, user) {
         await new Promise(resolve => {
             FB.api(apiCall, {access_token: token}, (response) => {
                 likesItems.concat(response.data);
-                if (!response.paging.next) {
+                if (!response.paging) {
                     hasNext = false;
                 } else {
-                    apiCall = response.paging.next;
+                    if (response.paging.next)
+                        apiCall += '?__paging_token=' + response.paging.next.split("_paging_token=")[1];
+                    else
+                        hasNext = false;
                 }
                 resolve();
             });
@@ -353,24 +362,35 @@ async function getLikes(token, user) {
 }
 
 // Este bloco é responsável por obter a listagem de feed
-async function getFeed(token, user) {
+async function getFeed(token, user, page) {
     let feedItems = [],
         hasNext = true,
-        apiCall = '/' + user + '/feed';
-    
+        apiCall = page.next.split('v2.8')[1];
+      let paging = page.next.split("_paging_token=")[1];
+      
        while (hasNext) {
-        await new Promise(resolve => {
-            FB.api(apiCall, {access_token: token}, (response) => {
-                feedItems.concat(response.data);
-                if (!response.paging.next) {
+        await new Promise( (resolve) => {
+            FB.api(apiCall, {
+                    access_token: token,               
+            }, function(response) {
+                
+                feedItems.push(response.data);
+                if (!response.paging) {
                     hasNext = false;
+                    console.log("entrei aqui gente 1")
                 } else {
-                    apiCall = response.paging.next;
+                    console.log("entrei aqui pra refazer,olha: " + response.paging.next)
+                    if (response.paging.next)
+                        apiCall = response.paging.next.split("_paging_token=")[1];
+                    else{
+                        hasNext = false;
+                        console.log("entrei aqui gente 2")
+                    }
                 }
                 resolve();
             });
         });
     }
-    console.log(feedItems);
+    
     return feedItems;        
 }

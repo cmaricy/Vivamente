@@ -11,4 +11,4 @@ var cfg = require('../config.json');
 * cfg.PASS_DB: Importa o valor de PASS_DB contido no objeto cfg
 */
 module.exports = { 'url': 
-			'mongodb://'+cfg.USER_DB+':'+cfg.PASS_DB+'@olympia.modulusmongo.net:27017/Xepoh4yj'};
+			'mongodb://'+cfg.USER_DB+':'+cfg.PASS_DB+'@ds129651.mlab.com:29651/vivamente'};
