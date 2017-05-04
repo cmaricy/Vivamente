@@ -254,7 +254,7 @@ module.exports = function(app) {
                 } else {
                     // Se a quantidade de dias for menor do que 60 irá redirecionar a mensagem ao usuário
                     // e nenhuma das etapadas de salvamento do questionário será realizada
-                    res.status(200).send("Você deverá responder o questionário após dois meses");
+                    res.status(200).send("Obrigada pela sua contribuição!");
                 } // FIM do else se dias  > 60 
 
             }); // FIM do FindOne do Mongoose
