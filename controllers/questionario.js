@@ -185,13 +185,6 @@ module.exports = function(app) {
                             Array.prototype.push.apply(quest.friends.data, response.data);
                             quest.friends.summary.total_count = response.summary.total_count;
 
-                            // bloco responsável por obter os demais dados paginados
-                            if (response.paging) {
-                                getFriends(global.tokenFBVMUser, req.user.facebook.id, response.paging).then((response_) => {
-                                    Array.prototype.push.apply(quest.friends.data, response_);
-                                });                                
-                            }
-
                         }); // FIM do FB.api user_friends                      
 
                         // Faz a chamada da URL que retorna os likes do usuário
