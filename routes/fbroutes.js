@@ -7,7 +7,7 @@ module.exports = function(app, passport) {
  	
  	// Rota que autorização do usuário que o passport encaminha para o facebook
 	app.get('/auth/facebook', passport.authenticate('facebook-canvas', {
-		scope : [ 'email', 'user_likes', 'user_posts' ]
+		scope : [ 'email', 'user_likes', 'user_posts', 'user_friends' ]
 	})); 
 
 	app.post('/auth/facebook/canvas', passport.authenticate('facebook-canvas', { successRedirect: '/',

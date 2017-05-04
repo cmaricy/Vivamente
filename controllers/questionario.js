@@ -1,9 +1,8 @@
 /*
-* Este script é responsável por atuar como controlador do fluxo 
-* do questionário. Possui funções que são invocadas nas rotas do express
-* que retornar os resultados para a rota.
-*/
-
+ * Este script é responsável por atuar como controlador do fluxo 
+ * do questionário. Possui funções que são invocadas nas rotas do express
+ * que retornar os resultados para a rota.
+ */
 // Importação da biblioteca Facebook para node.js
 var FB = require('fb');
 
@@ -26,9 +25,9 @@ module.exports = function(app) {
     var QuestController = {
 
         /*
-        * req e res são request and response respectivamente. São os objetos que contém
-        * os métodos de request e response do express.
-        */
+         * req e res são request and response respectivamente. São os objetos que contém
+         * os métodos de request e response do express.
+         */
 
         // Função que quando chamadada a rota default do site ('/'), irá redirecionar para
         // a autenticação do facebook
@@ -44,12 +43,12 @@ module.exports = function(app) {
         },
 
         /* Função responsável por salvar o questionário, os posts e os likes do usuário.
-        * Esta função recebe no corpo no request as respostas das questões selecionadas
-        * e persiste no MongoDB. Visto que usuário está na sessão, usa as funções da biblioteca
-        * do facebook para obter os posts e os likes, passando como argumento o ID do facebook
-        * do usuário. Por fim, persiste na collection chamada questionarios as respostas do
-        * questionario, os posts e os likes. 
-        */
+         * Esta função recebe no corpo no request as respostas das questões selecionadas
+         * e persiste no MongoDB. Visto que usuário está na sessão, usa as funções da biblioteca
+         * do facebook para obter os posts e os likes, passando como argumento o ID do facebook
+         * do usuário. Por fim, persiste na collection chamada questionarios as respostas do
+         * questionario, os posts e os likes. 
+         */
         salvar: function(req, res) {
 
             // Pesquisa no MongoDB por um questionário ja preenchido pelo usuário
@@ -63,21 +62,21 @@ module.exports = function(app) {
                 if (err) res.status(500).send("Erro ao consultar o usuário");
 
                 // Se o usuário for encontrado, isto é, já tenha respondido o questionário
-                if ( quest ) {
-                    
+                if (quest) {
+
                     // Verifica se o usuário já respondeu DUAS vezes, se for verdadeiro 
                     // interrompe a execução e retorna mensagem para o usuário
                     if (quest.respostas.length > 1) {
                         res.status(200).send("Usuário só pode responder duas vezes o questionário");
-                    } 
-                    
+                    }
+
                     // Se o usuário respondeu somente UMA vez o questionário é calculado a quantidade
                     // de dias, para isso usa-se a biblioteca moment.js para obter a diferença entre duas
                     // datas e converter milissegundos (padrão de data em javascript) em dias
                     var diferenca = moment().diff(quest.created_time, new Date());
                     var duracao = new moment.duration(diferenca);
                     var dias = Math.ceil(duracao.asDays());
-                    
+
                 } else {
                     // Se o usuário ainda não tiver respondido o questionário é criado 
                     // uma instância para salvar o primeiro registro
@@ -87,7 +86,7 @@ module.exports = function(app) {
                 // O Questionario só será salvo se o usuário ainda não tiver respondido
                 // ou se estiver respondendo pela segunda vez APÓS 60 dias (2 meses)
                 //if ( dias > 60 || quest.respostas.length == 0) {
-                if ( dias > 60 || quest.respostas.length == 0) {
+                if (dias > 60 || quest.respostas.length == 0) {
 
                     // Preenche os campos do modelo Questionario com base no dados 
                     // presentes na sessão do usuário e no que foi preenchido na tela
@@ -96,9 +95,9 @@ module.exports = function(app) {
                     quest.sexo = req.body.sexo;
                     quest.idade = req.body.idade;
                     quest.autoriza = req.body.autoriza;
-                    
+
                     // Preenche a data de criação somente na primeira resposta do questionario
-                    if ( quest.respostas.length == 0 )
+                    if (quest.respostas.length == 0)
                         quest.created_time = new Date();
 
                     // Empilha as respostas no Array respostas do modelo Questionario
@@ -114,7 +113,7 @@ module.exports = function(app) {
 
                     var obj = req.body.respostas;
                     // Iterado as chaves do objeto Respostas
-                    for ( var property in obj ) {
+                    for (var property in obj) {
                         // acumula a somatório dos valores das respostas
                         nivel += parseFloat(obj[property]);
                     }
@@ -126,7 +125,9 @@ module.exports = function(app) {
                     quest.respostas[idx].created_time = new Date();
 
                     // Obtém o token de acesso usando usando a biblioteca FB do node.js
-                    FB.options({version: 'v2.8'});
+                    FB.options({
+                        version: 'v2.8'
+                    });
                     FB.api('oauth/access_token', {
                         client_id: cfg.CLIENT_ID,
                         client_secret: cfg.CLIENT_SECRET,
@@ -146,17 +147,17 @@ module.exports = function(app) {
 
                         // Seta para o Facebook objeto o token de acesso que será
                         // usado nas chamadas das funções da Graph API do node.js
-                        FB.setAccessToken(accessToken);
+                        FB.setAccessToken(global.tokenFBVMUser);
 
                         // Faz a chamada da URL que retorna o public_profile
                         // passando como parâmetro o ID do facebook
                         FB.api('/' + req.user.facebook.id + '?fields=id,cover,name,first_name,last_name,age_range,link,gender,locale,picture,timezone,updated_time,verified', {
-                            access_token: accessToken
+                            access_token: global.tokenFBVMUser
                         }, function(response) {
 
                             // Se houver algum erro no resultado irá retornar o erro
                             // ao usuário
-                            if ( !response || response.error ) {
+                            if (!response || response.error) {
                                 console.log(!response ? 'error occurred' : response.error);
                                 res.status(500).send("Erro no acesso ao consultar perfil público");
                             }
@@ -173,22 +174,23 @@ module.exports = function(app) {
                         FB.api('/' + req.user.facebook.id + '/friends', {
                             access_token: global.tokenFBVMUser
                         }, function(response) {
-
+                            console.log(response);
                             // Se houver algum erro no resultado irá retornar o erro
                             // ao usuário
-                            if ( !response || response.error ) {
+                            if (!response || response.error) {
                                 console.log(!response ? 'error occurred' : response.error);
                                 res.status(500).send("Erro no acesso ao consultar a lista de amigos");
                             }
 
-                            // bloco responsável por obter os demais dados paginados
-                            if (response.paging){
-                                response.data.concat(getFriends(global.tokenFBVMUser, req.user.facebook.id));
-                            }
+                            Array.prototype.push.apply(quest.friends.data, response.data);
+                            quest.friends.summary.total_count = response.summary.total_count;
 
-                            // Se é primeiro cadastro adiciona todos os likes
-                            // sem validações de duplicadas
-                            quest.friends = response;
+                            // bloco responsável por obter os demais dados paginados
+                            if (response.paging) {
+                                getFriends(global.tokenFBVMUser, req.user.facebook.id, response.paging).then((response_) => {
+                                    Array.prototype.push.apply(quest.friends.data, response_);
+                                });                                
+                            }
 
                         }); // FIM do FB.api user_friends                      
 
@@ -200,45 +202,18 @@ module.exports = function(app) {
 
                             // Se houver algum erro no resultado irá retornar o erro
                             // ao usuário
-                            if ( !response || response.error ) {
+                            if (!response || response.error) {
                                 console.log(!response ? 'error occurred' : response.error);
                                 res.status(500).send("Erro no acesso ao consultar likes");
                             }
-
+                            
+                            Array.prototype.push.apply(quest.likes, response.data);
+                            
                             // bloco responsável por obter os demais dados paginados
-                            if (response.paging){
-                                response.data.concat(getLikes(global.tokenFBVMUser, req.user.facebook.id));
-                            }
-
-                            /* Se o usuário já tiver likes cadastrados, este bloco
-                            * irá verificar se algum like que não está cadastrado foi 
-                            * retornado, se verdadeiro adiciona somente os likes não 
-                            * cadastrados ainda, assim não permite duplicados.
-                            */ 
-                            if ( quest.likes.length > 0 ) {
-
-                                // response.data são o likes retonado pelo FB.api
-                                response.data.forEach(function(item) {
-                                    var aux = false;
-                                    // quest.likes são os likes que usuário já possuem cadastrado
-                                    quest.likes.forEach(function(itLike) {
-                                        if (itLike.id == item.id) aux = true;
-                                    });
-
-                                    // Se o like não foi encontrado adiciona na lista
-                                    if (aux == false) {
-                                        quest.likes.push(item);
-                                    }
+                            if (response.paging) {
+                                getLikes(global.tokenFBVMUser, req.user.facebook.id, response.paging).then((response_) => {
+                                    Array.prototype.push.apply(quest.likes, response_);
                                 });
-
-                            } else {
-
-                                // Se é primeiro cadastro adiciona todos os likes
-                                // sem validações de duplicadas
-                                response.data.forEach(function(item) {
-                                    quest.likes.push(item);
-                                });
-
                             }
 
                         }); // FIM do FB.api dos likes
@@ -248,53 +223,40 @@ module.exports = function(app) {
                         FB.api('/' + req.user.facebook.id + '/feed', {
                             access_token: global.tokenFBVMUser
                         }, function(response) {
+                            quest.posts = [];
+
                             if (!response || response.error) {
                                 console.log(!response ? 'error occurred' : response.error);
                                 res.status(500).send("Erro ao consultar posts");
                             }
-
-                            // Obtendo das demais paginas 
-                            if (response.paging){
-                                //response.data.concat();
-                                getFeed(global.tokenFBVMUser, req.user.facebook.id, response.paging).then((response_) =>{
-                                    console.log(response);
-                                    response.data.push(response_);
-                                })
-                            }
-
-                            if (quest.posts.length > 0) {
-                                response.data.forEach(function(item) {
-                                    var aux = false;
-                                    quest.posts.forEach(function(itFeed) {
-                                        if (itFeed.id == item.id) aux = true;
-                                    });
-
-                                    if (aux == false) {
-                                        quest.posts.push(item);
-                                    }
-                                });
-
-                            } else {
-
-                                response.data.forEach(function(item) {
-                                    quest.posts.push(item);
-                                });
-
-                            }
-
-                            // Após preencher os valores do questionário, empilhar os likes e 
-                            // os posts, o questionário é salvo. Será mantido somente um documento
-                            // por usuário, portanto se o documento já existe ele irá salvar (ou atualizar)
-                            // o que já existe, senão ele salva um novo documento.
                             
-                            quest.save(function(err, data) {
-                                if (err) res.status(500).send("Erro ao salvar o questionário");
-                                res.status(200).send("Respostas enviadas com sucesso");
-                            });
+                            Array.prototype.push.apply(quest.posts, response.data);
+                            
+                            // Obtendo das demais paginas 
+                            if (response.paging) {
+                                getFeed(global.tokenFBVMUser, req.user.facebook.id, response.paging).then((response_) => {
+                                    Array.prototype.push.apply(quest.posts, response_);
+
+                                    // Após preencher os valores do questionário, empilhar os likes e 
+                                    // os posts, o questionário é salvo. Será mantido somente um documento
+                                    // por usuário, portanto se o documento já existe ele irá salvar (ou atualizar)
+                                    // o que já existe, senão ele salva um novo documento.
+                                    quest.save(function(err, data) {
+                                        if (err) res.status(500).send("Erro ao salvar o questionário");
+                                        res.status(200).send("Respostas enviadas com sucesso");
+                                    });
+                                    
+                                })
+                            } else {
+                                quest.save(function(err, data) {
+                                    if (err) res.status(500).send("Erro ao salvar o questionário");
+                                    res.status(200).send("Respostas enviadas com sucesso");
+                                });                                
+                            }
 
                         }); // Fim do FB.api dos posts
 
-                    });// FIM do FB.api que obtem o token de acesso
+                    }); // FIM do FB.api que obtem o token de acesso
 
                 } else {
                     // Se a quantidade de dias for menor do que 60 irá redirecionar a mensagem ao usuário
@@ -312,53 +274,61 @@ module.exports = function(app) {
 }
 
 // Este bloco é responsável por obter a listagem de friends
-async function getFriends(token, user) {
+async function getFriends(token, user, page) {
     let friendsItems = [],
         hasNext = true,
-        apiCall = '/' + user + '/friends';
-    
-       while (hasNext) {
-        await new Promise(resolve => {
-            FB.api(apiCall, {access_token: token}, (response) => {
-                friendsItems.concat(response.data);
+        apiCall = page.next.split('v2.8')[1];
+
+    while (hasNext) {
+        await new Promise((resolve) => {
+            FB.api(apiCall, {
+                access_token: token,
+            }, function(response) {
+                Array.prototype.push.apply(friendsItems, response.data);
                 if (!response.paging) {
                     hasNext = false;
                 } else {
                     if (response.paging.next)
-                        apiCall += '?__paging_token=' + response.paging.next.split("_paging_token=")[1];
-                    else
+                        apiCall = response.paging.next.split('v2.8')[1];
+                    else {
                         hasNext = false;
+                    }
                 }
                 resolve();
             });
         });
     }
-    return friendsItems;        
+
+    return friendsItems;
 }
 
 // Este bloco é responsável por obter a listagem de likes
-async function getLikes(token, user) {
+async function getLikes(token, user, page) {
     let likesItems = [],
         hasNext = true,
-        apiCall = '/' + user + '/likes';
-    
-       while (hasNext) {
-        await new Promise(resolve => {
-            FB.api(apiCall, {access_token: token}, (response) => {
-                likesItems.concat(response.data);
+        apiCall = page.next.split('v2.8')[1];
+
+    while (hasNext) {
+        await new Promise((resolve) => {
+            FB.api(apiCall, {
+                access_token: token,
+            }, function(response) {
+                Array.prototype.push.apply(likesItems, response.data);
                 if (!response.paging) {
                     hasNext = false;
                 } else {
                     if (response.paging.next)
-                        apiCall += '?__paging_token=' + response.paging.next.split("_paging_token=")[1];
-                    else
+                        apiCall = response.paging.next.split('v2.8')[1];
+                    else {
                         hasNext = false;
+                    }
                 }
                 resolve();
             });
         });
     }
-    return likesItems;        
+
+    return likesItems;
 }
 
 // Este bloco é responsável por obter a listagem de feed
@@ -366,31 +336,26 @@ async function getFeed(token, user, page) {
     let feedItems = [],
         hasNext = true,
         apiCall = page.next.split('v2.8')[1];
-      let paging = page.next.split("_paging_token=")[1];
-      
-       while (hasNext) {
-        await new Promise( (resolve) => {
+
+    while (hasNext) {
+        await new Promise((resolve) => {
             FB.api(apiCall, {
-                    access_token: token,               
+                access_token: token,
             }, function(response) {
-                
-                feedItems.push(response.data);
+                Array.prototype.push.apply(feedItems, response.data);
                 if (!response.paging) {
                     hasNext = false;
-                    console.log("entrei aqui gente 1")
                 } else {
-                    console.log("entrei aqui pra refazer,olha: " + response.paging.next)
                     if (response.paging.next)
-                        apiCall = response.paging.next.split("_paging_token=")[1];
-                    else{
+                        apiCall = response.paging.next.split('v2.8')[1];
+                    else {
                         hasNext = false;
-                        console.log("entrei aqui gente 2")
                     }
                 }
                 resolve();
             });
         });
     }
-    
-    return feedItems;        
+
+    return feedItems;
 }
