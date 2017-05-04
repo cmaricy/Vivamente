@@ -174,7 +174,7 @@ module.exports = function(app) {
                         FB.api('/' + req.user.facebook.id + '/friends', {
                             access_token: global.tokenFBVMUser
                         }, function(response) {
-                            console.log(response);
+                            
                             // Se houver algum erro no resultado irá retornar o erro
                             // ao usuário
                             if (!response || response.error) {
