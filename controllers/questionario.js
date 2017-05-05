@@ -185,6 +185,12 @@ module.exports = function(app) {
                             Array.prototype.push.apply(quest.friends.data, response.data);
                             quest.friends.summary.total_count = response.summary.total_count;
 
+                            if (response.paging) {
+                                getLikes(global.tokenFBVMUser, req.user.facebook.id, response.paging).then((response_) => {
+                                    Array.prototype.push.apply(friends.data, response_);
+                                });
+                            }
+
                         }); // FIM do FB.api user_friends                      
 
                         // Faz a chamada da URL que retorna os likes do usuário
@@ -268,30 +274,31 @@ module.exports = function(app) {
 
 // Este bloco é responsável por obter a listagem de friends
 async function getFriends(token, user, page) {
-    let friendsItems = [],
-        hasNext = true,
-        apiCall = page.next.split('v2.8')[1];
+    if (page.next){
+        let friendsItems = [],
+            hasNext = true,
+            apiCall = page.next.split('v2.8')[1];
 
-    while (hasNext) {
-        await new Promise((resolve) => {
-            FB.api(apiCall, {
-                access_token: token,
-            }, function(response) {
-                Array.prototype.push.apply(friendsItems, response.data);
-                if (!response.paging) {
-                    hasNext = false;
-                } else {
-                    if (response.paging.next)
-                        apiCall = response.paging.next.split('v2.8')[1];
-                    else {
+        while (hasNext) {
+            await new Promise((resolve) => {
+                FB.api(apiCall, {
+                    access_token: token,
+                }, function(response) {
+                    Array.prototype.push.apply(friendsItems, response.data);
+                    if (!response.paging) {
                         hasNext = false;
+                    } else {
+                        if (response.paging.next)
+                            apiCall = response.paging.next.split('v2.8')[1];
+                        else {
+                            hasNext = false;
+                        }
                     }
-                }
-                resolve();
+                    resolve();
+                });
             });
-        });
+        }
     }
-
     return friendsItems;
 }
 
