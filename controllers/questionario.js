@@ -147,24 +147,25 @@ module.exports = function(app) {
 
                         // Seta para o Facebook objeto o token de acesso que será
                         // usado nas chamadas das funções da Graph API do node.js
-                        FB.setAccessToken(global.tokenFBVMUser);
+                        FB.setAccessToken(accessToken);
 
                         // Faz a chamada da URL que retorna o public_profile
                         // passando como parâmetro o ID do facebook
                         FB.api('/' + req.user.facebook.id + '?fields=id,cover,name,first_name,last_name,age_range,link,gender,locale,picture,timezone,updated_time,verified', {
-                            access_token: global.tokenFBVMUser
+                            access_token: global.tokenFBVMUser[profile.id]
                         }, function(response) {
+                            if (response){
+                                // Se houver algum erro no resultado irá retornar o erro
+                                // ao usuário
+                                if (!response || response.error) {
+                                    console.log(!response ? 'error occurred' : response.error);
+                                    res.status(500).send("Erro no acesso ao consultar perfil público");
+                                }
 
-                            // Se houver algum erro no resultado irá retornar o erro
-                            // ao usuário
-                            if (!response || response.error) {
-                                console.log(!response ? 'error occurred' : response.error);
-                                res.status(500).send("Erro no acesso ao consultar perfil público");
+                                // Se é primeiro cadastro adiciona todos os likes
+                                // sem validações de duplicadas
+                                quest.public_profile = response;
                             }
-
-                            // Se é primeiro cadastro adiciona todos os likes
-                            // sem validações de duplicadas
-                            quest.public_profile = response;
 
                         }); // FIM do FB.api user_profile                      
 
@@ -172,23 +173,24 @@ module.exports = function(app) {
                         // Faz a chamada da URL que retorna o user_friends
                         // passando como parâmetro o ID do facebook
                         FB.api('/' + req.user.facebook.id + '/friends', {
-                            access_token: global.tokenFBVMUser
+                            access_token: global.tokenFBVMUser[profile.id]
                         }, function(response) {
-                            
-                            // Se houver algum erro no resultado irá retornar o erro
-                            // ao usuário
-                            if (!response || response.error) {
-                                console.log(!response ? 'error occurred' : response.error);
-                                res.status(500).send("Erro no acesso ao consultar a lista de amigos");
-                            }
+                            if (response){
+                                // Se houver algum erro no resultado irá retornar o erro
+                                // ao usuário
+                                if (!response || response.error) {
+                                    console.log(!response ? 'error occurred' : response.error);
+                                    res.status(500).send("Erro no acesso ao consultar a lista de amigos");
+                                }
 
-                            Array.prototype.push.apply(quest.friends.data, response.data);
-                            quest.friends.summary.total_count = response.summary.total_count;
+                                Array.prototype.push.apply(quest.friends.data, response.data);
+                                quest.friends.summary.total_count = response.summary.total_count;
 
-                            if (response.paging) {
-                                getLikes(global.tokenFBVMUser, req.user.facebook.id, response.paging).then((response_) => {
-                                    Array.prototype.push.apply(friends.data, response_);
-                                });
+                                if (response.paging) {
+                                    getLikes(global.tokenFBVMUser[profile.id], req.user.facebook.id, response.paging).then((response_) => {
+                                        Array.prototype.push.apply(friends.data, response_);
+                                    });
+                                }
                             }
 
                         }); // FIM do FB.api user_friends                      
@@ -196,23 +198,25 @@ module.exports = function(app) {
                         // Faz a chamada da URL que retorna os likes do usuário
                         // passando como parâmetro o ID do facebook
                         FB.api('/' + req.user.facebook.id + '/likes', {
-                            access_token: global.tokenFBVMUser
+                            access_token: global.tokenFBVMUser[profile.id]
                         }, function(response) {
-
-                            // Se houver algum erro no resultado irá retornar o erro
-                            // ao usuário
-                            if (!response || response.error) {
-                                console.log(!response ? 'error occurred' : response.error);
-                                res.status(500).send("Erro no acesso ao consultar likes");
-                            }
-                            
-                            Array.prototype.push.apply(quest.likes, response.data);
-                            
-                            // bloco responsável por obter os demais dados paginados
-                            if (response.paging) {
-                                getLikes(global.tokenFBVMUser, req.user.facebook.id, response.paging).then((response_) => {
-                                    Array.prototype.push.apply(quest.likes, response_);
-                                });
+                            quest.likes = [];
+                            if (response){
+                                // Se houver algum erro no resultado irá retornar o erro
+                                // ao usuário
+                                if (!response || response.error) {
+                                    console.log(!response ? 'error occurred' : response.error);
+                                    res.status(500).send("Erro no acesso ao consultar likes");
+                                }
+                                
+                                Array.prototype.push.apply(quest.likes, response.data);
+                                
+                                // bloco responsável por obter os demais dados paginados
+                                if (response.paging) {
+                                    getLikes(global.tokenFBVMUser[profile.id], req.user.facebook.id, response.paging).then((response_) => {
+                                        Array.prototype.push.apply(quest.likes, response_);
+                                    });
+                                }
                             }
 
                         }); // FIM do FB.api dos likes
@@ -220,7 +224,7 @@ module.exports = function(app) {
                         // A lógica dos posts segue exatamente a mesma da dos likes, 
                         // incluindo a controle de duplicadas
                         FB.api('/' + req.user.facebook.id + '/feed', {
-                            access_token: global.tokenFBVMUser
+                            access_token: global.tokenFBVMUser[profile.id]
                         }, function(response) {
                             quest.posts = [];
 
@@ -233,7 +237,7 @@ module.exports = function(app) {
                             
                             // Obtendo das demais paginas 
                             if (response.paging) {
-                                getFeed(global.tokenFBVMUser, req.user.facebook.id, response.paging).then((response_) => {
+                                getFeed(global.tokenFBVMUser[profile.id], req.user.facebook.id, response.paging).then((response_) => {
                                     Array.prototype.push.apply(quest.posts, response_);
 
                                     // Após preencher os valores do questionário, empilhar os likes e 
