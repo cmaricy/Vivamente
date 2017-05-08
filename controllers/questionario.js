@@ -278,9 +278,9 @@ module.exports = function(app) {
 
 // Este bloco é responsável por obter a listagem de friends
 async function getFriends(token, user, page) {
+    let friendsItems = [];
     if (page.next){
-        let friendsItems = [],
-            hasNext = true,
+        let hasNext = true,
             apiCall = page.next.split('v2.8')[1];
 
         while (hasNext) {
@@ -308,7 +308,7 @@ async function getFriends(token, user, page) {
 
 // Este bloco é responsável por obter a listagem de likes
 async function getLikes(token, user, page) {
-    let likesItems = [],
+    let likesItems = [];
     if (page.next){
         let hasNext = true,
             apiCall = page.next.split('v2.8')[1];
