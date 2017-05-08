@@ -188,7 +188,7 @@ module.exports = function(app) {
 
                                 if (response.paging) {
                                     getLikes(global.tokenFBVMUser[req.user.facebook.id], req.user.facebook.id, response.paging).then((response_) => {
-                                        Array.prototype.push.apply(friends.data, response_);
+                                        Array.prototype.push.apply(quest.friends.data, response_);
                                     });
                                 }
                             }
