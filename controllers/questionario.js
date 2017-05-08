@@ -309,27 +309,29 @@ async function getFriends(token, user, page) {
 // Este bloco é responsável por obter a listagem de likes
 async function getLikes(token, user, page) {
     let likesItems = [],
-        hasNext = true,
-        apiCall = page.next.split('v2.8')[1];
+    if (page.next){
+        let hasNext = true,
+            apiCall = page.next.split('v2.8')[1];
 
-    while (hasNext) {
-        await new Promise((resolve) => {
-            FB.api(apiCall, {
-                access_token: token,
-            }, function(response) {
-                Array.prototype.push.apply(likesItems, response.data);
-                if (!response.paging) {
-                    hasNext = false;
-                } else {
-                    if (response.paging.next)
-                        apiCall = response.paging.next.split('v2.8')[1];
-                    else {
+        while (hasNext) {
+            await new Promise((resolve) => {
+                FB.api(apiCall, {
+                    access_token: token,
+                }, function(response) {
+                    Array.prototype.push.apply(likesItems, response.data);
+                    if (!response.paging) {
                         hasNext = false;
+                    } else {
+                        if (response.paging.next)
+                            apiCall = response.paging.next.split('v2.8')[1];
+                        else {
+                            hasNext = false;
+                        }
                     }
-                }
-                resolve();
+                    resolve();
+                });
             });
-        });
+        }
     }
 
     return likesItems;
@@ -337,29 +339,30 @@ async function getLikes(token, user, page) {
 
 // Este bloco é responsável por obter a listagem de feed
 async function getFeed(token, user, page) {
-    let feedItems = [],
-        hasNext = true,
-        apiCall = page.next.split('v2.8')[1];
+    let feedItems = [];
+    if (page.next){
+        let hasNext = true,
+            apiCall = page.next.split('v2.8')[1];
 
-    while (hasNext) {
-        await new Promise((resolve) => {
-            FB.api(apiCall, {
-                access_token: token,
-            }, function(response) {
-                Array.prototype.push.apply(feedItems, response.data);
-                if (!response.paging) {
-                    hasNext = false;
-                } else {
-                    if (response.paging.next)
-                        apiCall = response.paging.next.split('v2.8')[1];
-                    else {
+        while (hasNext) {
+            await new Promise((resolve) => {
+                FB.api(apiCall, {
+                    access_token: token,
+                }, function(response) {
+                    Array.prototype.push.apply(feedItems, response.data);
+                    if (!response.paging) {
                         hasNext = false;
+                    } else {
+                        if (response.paging.next)
+                            apiCall = response.paging.next.split('v2.8')[1];
+                        else {
+                            hasNext = false;
+                        }
                     }
-                }
-                resolve();
+                    resolve();
+                });
             });
-        });
+        }
     }
-
     return feedItems;
 }
