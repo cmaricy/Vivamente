@@ -1,3 +1,5 @@
+global.tokenFBVMUser = {};
+
 /*
 * Este script é responsável por implementar funções de autenticação
 * da biblioteca passport.js.
@@ -38,8 +40,7 @@ module.exports = function(passport) {
 			UserDB.findOne({
 				'facebook.id' : profile.id
 			}, // if use findOrCreate "502 bad gatway nginx" eror
-			function(err, user) {
-				global.tokenFBVMUser = {};
+			function(err, user) {				
 				global.tokenFBVMUser[profile.id] =  accessToken;
 				// Em caso de erro envia para quem chamou
 				if (err) {
